@@ -15,7 +15,7 @@ export default {
             default: '#212121'
         }
     },
-    mounted () {
+    mounted() {
         this.$refs.divider.style.setProperty('width', this.width)
         this.$refs.divider.style.setProperty('background-color', this.color)
     }
@@ -27,6 +27,6 @@ export default {
     height: 2px;
     border-radius: 1px;
     margin: 8px 0;
-    opacity: .15;
+    opacity: .08;
 }
 </style>

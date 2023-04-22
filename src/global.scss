@@ -2,6 +2,11 @@ $mainBg: #F6F8FA;
 $minorBg: #4091FF;
 $panelBg: #FFFFFF;
 $font-color: #212121;
+$font-color-dark: #FFFFFF;
+$red: #f56c6c;
+$green: #98FB98;
+$blue: #0099ff;
+$yellow: #FFEF00;
 
 @mixin cols() {
     display: flex;
@@ -13,16 +18,22 @@ $font-color: #212121;
     flex-direction: column;
 }
 
+@mixin center() {
+    align-items: center;
+    justify-content: center;
+}
+
 // button
 @mixin button() {
     @include cols();
     align-items: center;
     padding: 8px;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.1);
+    transform: translateY(0);
     transition: transform .2s ease-in-out,
         box-shadow .2s linear,
-        color .2s ease-in-out;
+        color .2s ease-in-out,
+        font-size .2s ease-in-out;
     cursor: pointer;
 
     &:hover {
