@@ -1,44 +1,60 @@
 <template>
     <div class="skin-box">
-        <canvas id="skin-container"></canvas>
+        <img :src="imgURL" :title="title">
     </div>
 </template>
 
 <script>
-export default {
+import { defineComponent, onMounted, ref } from 'vue'
+import 'minecraft-skin-render'
+
+export default defineComponent({
     name: 'SkinBox',
-    data() {
-        return {
-
+    props: {
+        skin: {
+            type: String
+        },
+        title: {
+            type: String,
+            default: ''
         }
     },
-    methods: {
-        initializeViewer() {
-            const skinViewer = new skinview3d.SkinViewer({
-                canvas: document.getElementById("skin-container")
-            })
+    setup(props) {
+        const imgURL = ref('')
+        const canvas = document.createElement('canvas')
+        canvas.dataset.skin = props.skin
+        canvas.height = 240
+        canvas.width = 180
+        skinRender.skin3d(canvas)
 
-            skinViewer.width = 180
-            skinViewer.height = 240
-            skinViewer.loadSkin(require('@/assets/skin/azuremy.png'))
-            skinViewer.controls.enableRotate = false
-            skinViewer.controls.enableZoom = false
-        }
-    },
-    mounted() {
-        this.initializeViewer()
+        onMounted(() => {
+            setTimeout(() => {
+                imgURL.value = canvas.toDataURL('image/png')
+            }, 1000);
+        })
+
+        return { imgURL }
     }
-}
+})
 </script>
 
 <style lang="scss">
 @import '../global.scss';
 
 .skin-box {
+    @include cols();
+    @include center();
     background-color: $panelBg;
     box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
     border-radius: 8px;
-    min-width: 180px;
-    min-height: 240px;
+    min-width: 196px;
+    min-height: 256px;
+    padding: 8px;
+
+    img {
+        width: 180px;
+        height: 240px;
+        user-select: none;
+    }
 }
 </style>
