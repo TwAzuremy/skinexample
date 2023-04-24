@@ -1,9 +1,9 @@
 <template>
-    there is collect
+    there is favorite
 </template>
     
 <script>
 export default {
-    name: "Collect"
+    name: "Favorite"
 }
 </script>

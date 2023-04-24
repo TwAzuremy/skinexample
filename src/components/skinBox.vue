@@ -1,12 +1,15 @@
 <template>
-    <div class="skin-box">
-        <img :src="imgURL" :title="title">
+    <div class="skin-box" :data-author="author">
+        <span class="skin-title" :title="title">{{ title }}</span>
+        <img :src="skin" :alt="title">
+        <div class="skin-info">
+
+        </div>
     </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
-import 'minecraft-skin-render'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'SkinBox',
@@ -17,23 +20,29 @@ export default defineComponent({
         title: {
             type: String,
             default: ''
+        },
+        author: {
+            type: String,
+            default: ''
+        },
+        model: {
+            type: String,
+            validator: function (value) {
+                return ['alex', 'steve'].indexOf(value) !== -1
+            },
+            default: 'steve'
+        },
+        like: {
+            type: Number,
+            default: 0
+        },
+        favorite: {
+            type: Number,
+            default: 0
         }
     },
-    setup(props) {
-        const imgURL = ref('')
-        const canvas = document.createElement('canvas')
-        canvas.dataset.skin = props.skin
-        canvas.height = 240
-        canvas.width = 180
-        skinRender.skin3d(canvas)
+    setup() {
 
-        onMounted(() => {
-            setTimeout(() => {
-                imgURL.value = canvas.toDataURL('image/png')
-            }, 1000);
-        })
-
-        return { imgURL }
     }
 })
 </script>
@@ -42,7 +51,7 @@ export default defineComponent({
 @import '../global.scss';
 
 .skin-box {
-    @include cols();
+    @include rows();
     @include center();
     background-color: $panelBg;
     box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
@@ -50,6 +59,16 @@ export default defineComponent({
     min-width: 196px;
     min-height: 256px;
     padding: 8px;
+
+    span.skin-title {
+        width: 100%;
+        line-height: 30px;
+        text-align: center;
+        font-size: 16px;
+        color: $font-color;
+        background-color: $scrollerbarBg;
+        border-radius: 4px;
+    }
 
     img {
         width: 180px;

@@ -15,7 +15,7 @@
           </template>
         </icon-button>
       </router-link>
-      <router-link tag="router" to="/collect">
+      <router-link tag="router" to="/favorite">
         <icon-button text="收藏" class="revolve">
           <template v-slot:svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -166,7 +166,8 @@ export default {
 }
 
 .views {
+  position: relative;
   flex: 1;
-  margin: 16px;
+  margin: 0 16px;
 }
 </style>

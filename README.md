@@ -15,10 +15,5 @@ npm run serve
 npm run build
 ```
 
-### Minecraft Skin Render
-```
-npm i minecraft-skin-render
-```
-
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
