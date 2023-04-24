@@ -20,12 +20,12 @@
             <pagination class="right" :total="30"></pagination>
         </div>
         <div class="down" ref="skinContainer">
-            <div class="skin-container">
-                <div class="container" v-for="(row, i) in skinContainerList" :key="i">
+            <ul class="skin-container">
+                <li class="container" v-for="(row, i) in skinContainerList" :key="i">
                     <skin-box :style="{ 'min-width': (196 + fillWidth) + 'px' }" v-for="(col, j) in row" :key="j"
-                        :skin="col.skin" :title="col.title"></skin-box>
-                </div>
-            </div>
+                        :skin="col.imgURL" :title="col.title" :model="col.model"></skin-box>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -35,9 +35,10 @@ import inputBox from '@/components/inputBox.vue';
 import Dropdown from '@/components/dropdown.vue';
 import Pagination from '@/components/pagination.vue';
 import SkinBox from '@/components/skinBox.vue';
-import { defineComponent, ref, onMounted, watchEffect, onUnmounted } from 'vue';
+import { defineComponent, ref, onMounted, onUnmounted, computed } from 'vue';
 
 import { debounce } from '@/assets/js/debounce'
+import { useStore } from 'vuex';
 
 export default defineComponent({
     name: "Warehouse",
@@ -45,28 +46,8 @@ export default defineComponent({
         inputBox, Dropdown, Pagination, SkinBox
     },
     setup() {
-        const skinList = ref([
-            {
-                'skin': require('@/assets/skin/azuremy.png'),
-                'title': 'Skin 1',
-                'model': 'alex'
-            },
-            {
-                'skin': require('@/assets/skin/azuremy1.png'),
-                'title': 'Skin 2',
-                'model': 'alex'
-            },
-            {
-                'skin': require('@/assets/skin/azuremy2.png'),
-                'title': 'Skin 3',
-                'model': 'alex'
-            },
-            {
-                'skin': require('@/assets/skin/azuremy3.png'),
-                'title': 'Skin 4',
-                'model': 'steve'
-            },
-        ])
+        const store = useStore()
+        const skinList = computed(() => store.state.skin.skinData)
         const skinContainerList = ref([])
         const fillWidth = ref(0)
         const skinContainer = ref(null)
@@ -114,11 +95,11 @@ export default defineComponent({
             function task(task) {
                 return new Promise(resolve => {
                     canvas.dataset.skin = skinList.value[task].skin
-                    canvas.dataset.model = skinList.value[task].model === 'alex' ? 'slim' : 'fat'
+                    canvas.dataset.model = skinList.value[task].model === 'Alex' ? 'slim' : 'fat'
                     skinRender.skin3d(canvas)
 
                     setTimeout(() => {
-                        skinList.value[task].skin = canvas.toDataURL('image/png')
+                        skinList.value[task].imgURL = canvas.toDataURL('image/png')
                         resolve()
                     }, 100);
                 })
