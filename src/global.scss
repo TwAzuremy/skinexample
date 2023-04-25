@@ -43,3 +43,18 @@ $yellow: #FFDC4B;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.2);
     }
 }
+
+// scrollbar
+@mixin scroll() {
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: $scrollerbarBg;
+        border-radius: 4px;
+        transform: translateX(100px);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: $scrollerbarClr;
+    }
+}

@@ -57,13 +57,14 @@ export default {
                 return;
             }
 
-            if (currentPage >= this.mostDisplayed) {
+            if (currentPage >= this.mostDisplayed && currentPage !== 3) {
                 this.paginationList.push('...')
             }
 
             const intermediatePage = Math.min(this.total, this.mostDisplayed)
-            const prevNumb = currentPage >= this.total - 2 ? 4 - (this.total - currentPage) : 2
-            const nextNumb = Math.min(currentPage, 2)
+            const leftRightDisplayedNumb = Math.floor(this.mostDisplayed / 2)
+            const prevNumb = currentPage >= this.total - 2 ? leftRightDisplayedNumb + 2 - (this.total - currentPage) : leftRightDisplayedNumb
+            const nextNumb = Math.min(currentPage, leftRightDisplayedNumb)
 
             for (let i = 0 - prevNumb; i < intermediatePage - nextNumb; i++) {
                 let page = currentPage + i
@@ -73,7 +74,7 @@ export default {
                 }
             }
 
-            if (currentPage < this.total - 3) {
+            if (currentPage < this.total - 1 - leftRightDisplayedNumb) {
                 this.paginationList.push('...')
             }
 

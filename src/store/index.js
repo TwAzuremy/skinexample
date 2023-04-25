@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import skinModules from './skinModules'
+import favoritesModules from './favoritesModules'
 
 export default createStore({
   state: {
@@ -11,6 +12,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    skin: skinModules
+    skin: skinModules,
+    favorite: favoritesModules
   }
 })

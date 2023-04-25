@@ -38,6 +38,7 @@ import SkinBox from '@/components/skinBox.vue';
 import { defineComponent, ref, onMounted, onUnmounted, computed } from 'vue';
 
 import { debounce } from '@/assets/js/debounce'
+import { drawSkinCanvasToImg } from '@/assets/js/drawSkinCanvasToImg'
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -46,8 +47,7 @@ export default defineComponent({
         inputBox, Dropdown, Pagination, SkinBox
     },
     setup() {
-        const store = useStore()
-        const skinList = computed(() => store.state.skin.skinData)
+        const skinList = computed(() => useStore().state.skin.skinData)
         const skinContainerList = ref([])
         const fillWidth = ref(0)
         const skinContainer = ref(null)
@@ -83,34 +83,11 @@ export default defineComponent({
         canvas.height = 240
         canvas.width = 180
 
-        async function drawSkinCanvas() {
-            draw()
-
-            async function draw() {
-                for (let i = 0; i < skinList.value.length; i++) {
-                    await task(i)
-                }
-            }
-
-            function task(task) {
-                return new Promise(resolve => {
-                    canvas.dataset.skin = skinList.value[task].skin
-                    canvas.dataset.model = skinList.value[task].model === 'Alex' ? 'slim' : 'fat'
-                    skinRender.skin3d(canvas)
-
-                    setTimeout(() => {
-                        skinList.value[task].imgURL = canvas.toDataURL('image/png')
-                        resolve()
-                    }, 100);
-                })
-            }
-        }
-
         const windowWidth = ref(window.innerWidth)
         const debouncedResizeHandler = debounce(initSkinContainer, 500)
 
         onMounted(() => {
-            drawSkinCanvas()
+            skinList.value = drawSkinCanvasToImg(canvas, skinList.value)
             initSkinContainer()
 
             window.addEventListener('resize', debouncedResizeHandler)
@@ -169,8 +146,8 @@ export default defineComponent({
 
         .skin-container {
             position: absolute;
-            top: 12px;
-            left: 12px;
+            top: 0;
+            left: 0;
             @include rows();
             width: 100%;
             padding-right: 8px;

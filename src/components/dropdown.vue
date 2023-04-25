@@ -11,7 +11,7 @@
         <ul class="dropdown-item" :class="{ 'unfold': dropdownShow }"
             :style="{ height: (dropdownShow ? (setHeight > actualHeight ? actualHeight : setHeight) : 0) + 'px' }">
             <li class="item" v-for="( value, index ) in    this.data   " :class="{ 'select': index === this.selectIndex }"
-                @click="show(false); selectValue(value, index)">
+                @click="show(false); selectValue(value, index); $emit('dd-select', index);">
                 {{ value }}
             </li>
         </ul>
