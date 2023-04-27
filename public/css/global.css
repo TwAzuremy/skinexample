@@ -21,7 +21,8 @@ ul {
     list-style-type: none;
 }
 
-input {
+input[type="text"],
+input[type="number"] {
     border: none;
     outline: none;
     min-height: 40px;

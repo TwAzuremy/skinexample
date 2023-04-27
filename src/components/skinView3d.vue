@@ -7,41 +7,53 @@
         <div class="canvas-container">
             <canvas id="skin3dContainer" ref="skin3dContainer"></canvas>
             <div class="canvas-control">
-                <a class="animation-button stop" @click="viewerControl.animationPlay()">
-                    <svg v-show="!play" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-pause">
-                        <rect x="6" y="4" width="4" height="16"></rect>
-                        <rect x="14" y="4" width="4" height="16"></rect>
-                    </svg>
-                    <svg v-show="play" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-play">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </a>
-                <a class="animation-button rotate" @click="viewerControl.autoRotate()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-rotate-ccw">
-                        <polyline points="1 4 1 10 7 10"></polyline>
-                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                    </svg>
-                </a>
+                <icon-button class="animation-button stop" @click="viewerControl.animationPlay()">
+                    <template v-slot:svg>
+                        <svg v-show="play" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-pause">
+                            <rect x="6" y="4" width="4" height="16"></rect>
+                            <rect x="14" y="4" width="4" height="16"></rect>
+                        </svg>
+                        <svg v-show="!play" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-play">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </template>
+                </icon-button>
+                <icon-button class="animation-button rotate" @click="viewerControl.autoRotate()">
+                    <template v-slot:svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-rotate-ccw">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                    </template>
+                </icon-button>
             </div>
+        </div>
+        <div class="param-container">
+            <slider-box text="动作动画速度" :min="0" :max="3" :step="0.1" :val="1"></slider-box>
+            <slider-box text="旋转动画速度" :min="0" :max="3" :step="0.1" :val="2"></slider-box>
         </div>
     </div>
 </template>
 
 <script>
 import Dropdown from '@/components/dropdown.vue';
+import IconButton from '@/components/iconButton.vue';
+import SliderBox from '@/components/slider.vue';
 
 import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
 
 export default defineComponent({
     name: 'SkinView3d',
     components: {
-        Dropdown
+        Dropdown,
+        IconButton,
+        SliderBox
     },
     props: {
         skin: {
@@ -55,7 +67,7 @@ export default defineComponent({
     setup(props) {
         const skin3dContainer = ref(null)
         const skin = ref(props.skin)
-        var play = ref(true)
+        const play = ref(false)
         const skinAnimations = [
             null,
             new skinview3d.IdleAnimation(),
@@ -63,6 +75,7 @@ export default defineComponent({
             new skinview3d.RunningAnimation(),
             new skinview3d.FlyingAnimation()
         ];
+        var lastAnimation = null;
         let skinViewer
 
         function initializeViewer() {
@@ -81,19 +94,51 @@ export default defineComponent({
         const viewerControl = {
             initializeAnimation: (numb) => {
                 skinViewer.animation = skinAnimations[numb] || null;
-                play.value = true
+                const paused = skinViewer.animation?.paused !== undefined
+
+                if (paused || skinViewer.autoRotate) {
+                    play.value = true
+                    paused ? skinViewer.animation.paused = false : null
+                } else {
+                    play.value = false
+                }
             },
             animationPlay: () => {
-                const paused = skinViewer.animation?.paused
-                if (paused === null || paused === undefined) {
+                const paused = skinViewer.animation?.paused !== undefined
+
+                if (skinViewer.autoRotate || (paused && !skinViewer.animation.paused)) {
+                    if (skinViewer.autoRotate && paused) {
+                        lastAnimation = 'both'
+                    } else if (skinViewer.autoRotate) {
+                        lastAnimation = 'rotate'
+                    } else if (paused && !skinViewer.animation.paused) {
+                        lastAnimation = 'action'
+                    }
+
+                    skinViewer.autoRotate = false
+                    paused ? skinViewer.animation.paused = true : null
+                    play.value = false
                 } else {
-                    play.value = !play.value
-                    !play.value ? skinViewer.autoRotate = false : null
-                    skinViewer.animation.paused = !play.value
+                    if (lastAnimation === 'rotate') {
+                        skinViewer.autoRotate = true
+                        play.value = true
+                    } else if (lastAnimation === 'action' && paused) {
+                        paused ? skinViewer.animation.paused = false : null
+                        play.value = true
+                    } else if (lastAnimation === 'both') {
+                        skinViewer.autoRotate = true
+                        paused ? skinViewer.animation.paused = false : null
+                        play.value = true
+                    }
+
+                    lastAnimation = null
                 }
             },
             autoRotate: () => {
                 skinViewer.autoRotate = !skinViewer.autoRotate
+
+                const paused = skinViewer.animation?.paused !== undefined
+                play.value = skinViewer.autoRotate || (paused && !skinViewer.animation.paused)
             }
         }
 
@@ -145,13 +190,18 @@ export default defineComponent({
             gap: 8px;
 
             .animation-button {
-                @include button();
                 color: rgba($font-color, $alpha: .6);
 
                 &:hover {
                     color: $minorBg;
                 }
             }
+        }
+    }
+
+    .param-container {
+        .slider-box:not(:first-child) {
+            margin-top: 12px;
         }
     }
 }

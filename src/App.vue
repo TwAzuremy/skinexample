@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import divider from './components/divider.vue';
-import iconButton from './components/iconButton.vue';
+import divider from '@/components/divider.vue';
+import iconButton from '@/components/iconButton.vue';
 
 export default {
   components: {
