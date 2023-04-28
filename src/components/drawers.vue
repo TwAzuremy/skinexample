@@ -52,7 +52,7 @@ export default defineComponent({
 .drawers {
     @include rows();
     position: absolute;
-    padding: 12px;
+    padding: 12px 24px 12px 12px;
     background-color: $panelBg;
     width: 500px;
     height: 100%;

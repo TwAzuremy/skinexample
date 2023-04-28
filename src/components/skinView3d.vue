@@ -35,8 +35,8 @@
             </div>
         </div>
         <div class="param-container">
-            <slider-box text="动作动画速度" :min="0" :max="3" :step="0.1" :val="1"></slider-box>
-            <slider-box text="旋转动画速度" :min="0" :max="3" :step="0.1" :val="2"></slider-box>
+            <slider-box ref="actionAnimationSpeed" text="动作动画速度" :min="0" :max="3" :step="0.1" :val="1"></slider-box>
+            <slider-box ref="rotateAnimationSpeed" text="旋转动画速度" :min="0" :max="3" :step="0.1" :val="2"></slider-box>
         </div>
     </div>
 </template>
@@ -46,7 +46,7 @@ import Dropdown from '@/components/dropdown.vue';
 import IconButton from '@/components/iconButton.vue';
 import SliderBox from '@/components/slider.vue';
 
-import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
+import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
     name: 'SkinView3d',
@@ -76,7 +76,10 @@ export default defineComponent({
             new skinview3d.FlyingAnimation()
         ];
         var lastAnimation = null;
+        const actionAnimationSpeed = ref(null)
+        const rotateAnimationSpeed = ref(null)
         let skinViewer
+        let stopWatching
 
         function initializeViewer() {
             skinViewer = new skinview3d.SkinViewer({
@@ -148,12 +151,28 @@ export default defineComponent({
             }
         })
 
+        nextTick(() => {
+            stopWatching = watch([() => actionAnimationSpeed.value && actionAnimationSpeed.value.value, () => rotateAnimationSpeed.value && rotateAnimationSpeed.value.value], ([newActionAnimationVal, newRotateAnimationVal], [oldActionAnimationVal, oldRotateAnimationVal]) => {
+                if (newActionAnimationVal !== oldActionAnimationVal) {
+                    const paused = skinViewer.animation?.speed !== undefined
+                    paused ? skinViewer.animation.speed = newActionAnimationVal : null
+                }
+
+                if (newRotateAnimationVal !== oldRotateAnimationVal) {
+                    skinViewer.autoRotateSpeed = newRotateAnimationVal
+                }
+            })
+        })
+
         onBeforeUnmount(() => {
             skinViewer.dispose()
+            nextTick(() => {
+                stopWatching && stopWatching()
+            })
         })
 
         return {
-            skin3dContainer, skin, loadSkin, play, viewerControl
+            skin3dContainer, skin, loadSkin, play, viewerControl, actionAnimationSpeed, rotateAnimationSpeed
         }
     }
 })

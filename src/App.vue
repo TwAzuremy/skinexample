@@ -168,6 +168,9 @@ export default {
 .views {
   position: relative;
   flex: 1;
-  margin: 0 16px;
+  padding: 0 16px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  @include scroll();
 }
 </style>

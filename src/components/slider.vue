@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 
 export default defineComponent({
     name: 'SliderBox',
@@ -60,10 +60,10 @@ export default defineComponent({
         const number = ref(null)
         const sliderProccess = ref(null)
         var value = ref(props.val)
+        let stopWatching
 
         function sliderValueChange() {
             value.value = slider.value.value
-            sliderProccessChange()
         }
 
         function sliderProccessChange() {
@@ -71,19 +71,20 @@ export default defineComponent({
         }
 
         function checkDigit() {
+            if (number.value.value === '') {
+                return
+            }
+
             var numbVal = Number(number.value.value)
-            value.value = numbVal > props.max ? props.max : (numbVal < props.min ? props.min : numbVal)
-            sliderProccessChange()
+            value.value = numbVal > props.max ? props.max : numbVal
         }
 
         const numberControl = {
             add() {
-                value.value = Math.min(Number(value.value) + props.step, props.max);
-                sliderProccessChange()
+                value.value = Number((Math.min(Number(value.value) + props.step, props.max)).toFixed(1));
             },
             sub() {
-                value.value = Math.max(Number(value.value) - props.step, props.min);
-                sliderProccessChange()
+                value.value = Number((Math.max(Number(value.value) - props.step, props.min)).toFixed(1));
             }
         }
 
@@ -95,6 +96,14 @@ export default defineComponent({
             sliderProccessChange()
             slider.value.addEventListener('input', sliderValueChange)
             number.value.addEventListener('input', checkDigit)
+        })
+
+        stopWatching = watch(value, (newVal, oldVal) => {
+            sliderProccessChange()
+        })
+
+        onUnmounted(() => {
+            stopWatching && stopWatching()
         })
 
         return {
@@ -110,7 +119,7 @@ export default defineComponent({
 .slider-box {
     width: 100%;
     @include rows();
-    
+
     .slider-text {
         color: $font-color;
         font-size: 14px;

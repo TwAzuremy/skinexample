@@ -70,7 +70,7 @@ export default defineComponent({
     @include rows();
     width: 100%;
     height: 100%;
-    margin: 12px 0;
+    padding-top: 12px;
 
     .top {
         width: 100%;
@@ -82,8 +82,7 @@ export default defineComponent({
         flex: 1;
         overflow-y: scroll;
         @include scroll();
-        margin-top: 12px;
-        margin-bottom: 24px;
+        margin: 12px 0;
 
         .skin-container {
             @include cols();
