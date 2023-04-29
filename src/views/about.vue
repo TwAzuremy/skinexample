@@ -231,6 +231,7 @@ a.jumpButton {
             width: 36px;
             height: 36px;
             border-radius: 4px;
+            box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
         }
 
         >div {

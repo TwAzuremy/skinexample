@@ -1,10 +1,13 @@
 <template>
     <div class="skin-view3d">
         <div class="skin-top">
-            <dropdown :data="['自动检测', 'Steve', 'Alex']"></dropdown>
+            <dropdown v-if="!text" :data="['自动检测', 'Steve', 'Alex']" ref="dropdownSkinModel"
+                @dd-select="viewerControl.switchModels">
+            </dropdown>
+            <span v-if="text" class="skin-title">{{ text }}</span>
             <dropdown :data="['无动作', '站立', '行走', '跑步', '游泳']" @dd-select="viewerControl.initializeAnimation"></dropdown>
         </div>
-        <div class="canvas-container">
+        <div class="canvas-container" ref="canvasContainer">
             <canvas id="skin3dContainer" ref="skin3dContainer"></canvas>
             <div class="canvas-control">
                 <icon-button class="animation-button stop" @click="viewerControl.animationPlay()">
@@ -59,6 +62,10 @@ export default defineComponent({
         skin: {
             type: String,
             default: require('@/assets/skin/Steve.png')
+        },
+        text: {
+            type: String,
+            default: ''
         }
     },
     emits: [
@@ -75,23 +82,35 @@ export default defineComponent({
             new skinview3d.RunningAnimation(),
             new skinview3d.FlyingAnimation()
         ];
-        var lastAnimation = null;
+        let lastAnimation = null;
         const actionAnimationSpeed = ref(null)
         const rotateAnimationSpeed = ref(null)
+        const dropdownSkinModel = ref(null)
         let skinViewer
         let stopWatching
+        const skinModel = [
+            'auto-detect', 'default', 'slim'
+        ]
+        const canvasContainer = ref(null)
 
         function initializeViewer() {
             skinViewer = new skinview3d.SkinViewer({
                 canvas: skin3dContainer.value
             })
-            skinViewer.width = 300
-            skinViewer.height = 400
-            loadSkin(skin.value)
+
+            reloadSkin(skin.value)
         }
 
-        function loadSkin(skin) {
-            skinViewer.loadSkin(skin)
+        function reloadSkin(skin_input) {
+            skin.value = skin_input
+            setTimeout(() => {
+                skinViewer.width = canvasContainer.value.offsetWidth
+                skinViewer.height = canvasContainer.value.offsetHeight
+            }, 300)
+
+            skinViewer.loadSkin(skin.value, {
+                model: skinModel[dropdownSkinModel.value?.getIndex() ?? 0]
+            })
         }
 
         const viewerControl = {
@@ -102,6 +121,7 @@ export default defineComponent({
                 if (paused || skinViewer.autoRotate) {
                     play.value = true
                     paused ? skinViewer.animation.paused = false : null
+                    paused ? skinViewer.animation.speed = actionAnimationSpeed.value.value : null
                 } else {
                     play.value = false
                 }
@@ -142,6 +162,9 @@ export default defineComponent({
 
                 const paused = skinViewer.animation?.paused !== undefined
                 play.value = skinViewer.autoRotate || (paused && !skinViewer.animation.paused)
+            },
+            switchModels: (index) => {
+                reloadSkin(skin.value)
             }
         }
 
@@ -152,16 +175,17 @@ export default defineComponent({
         })
 
         nextTick(() => {
-            stopWatching = watch([() => actionAnimationSpeed.value && actionAnimationSpeed.value.value, () => rotateAnimationSpeed.value && rotateAnimationSpeed.value.value], ([newActionAnimationVal, newRotateAnimationVal], [oldActionAnimationVal, oldRotateAnimationVal]) => {
-                if (newActionAnimationVal !== oldActionAnimationVal) {
-                    const paused = skinViewer.animation?.speed !== undefined
-                    paused ? skinViewer.animation.speed = newActionAnimationVal : null
-                }
+            stopWatching = watch([() => actionAnimationSpeed.value && actionAnimationSpeed.value.value, () => rotateAnimationSpeed.value && rotateAnimationSpeed.value.value],
+                ([newActionAnimationVal, newRotateAnimationVal], [oldActionAnimationVal, oldRotateAnimationVal]) => {
+                    if (newActionAnimationVal !== oldActionAnimationVal) {
+                        const paused = skinViewer.animation?.speed !== undefined
+                        paused ? skinViewer.animation.speed = newActionAnimationVal : null
+                    }
 
-                if (newRotateAnimationVal !== oldRotateAnimationVal) {
-                    skinViewer.autoRotateSpeed = newRotateAnimationVal
-                }
-            })
+                    if (newRotateAnimationVal !== oldRotateAnimationVal) {
+                        skinViewer.autoRotateSpeed = newRotateAnimationVal
+                    }
+                })
         })
 
         onBeforeUnmount(() => {
@@ -172,7 +196,7 @@ export default defineComponent({
         })
 
         return {
-            skin3dContainer, skin, loadSkin, play, viewerControl, actionAnimationSpeed, rotateAnimationSpeed
+            skin3dContainer, skin, reloadSkin, play, viewerControl, actionAnimationSpeed, rotateAnimationSpeed, skinModel, dropdownSkinModel, canvasContainer
         }
     }
 })
@@ -191,15 +215,24 @@ export default defineComponent({
         .dropdown {
             z-index: 1;
         }
+
+        .skin-title {
+            @include cols();
+            align-items: center;
+            font-weight: 600;
+            color: $font-color;
+        }
     }
 
     .canvas-container {
         position: relative;
+        flex: 1;
         margin: 12px 0;
         @include cols();
         @include center();
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
+        background-color: $panelBg;
 
         .canvas-control {
             position: absolute;
@@ -210,6 +243,7 @@ export default defineComponent({
 
             .animation-button {
                 color: rgba($font-color, $alpha: .6);
+                background-color: $panelBg;
 
                 &:hover {
                     color: $minorBg;

@@ -4,6 +4,7 @@ import Favorite from '../views/favorite.vue'
 import Settings from '../views/settings.vue'
 import Warehouse from '../views/warehouse.vue'
 import About from '../views/about.vue'
+import SkinDisplay from '../views/skinDisplay.vue'
 
 const routes = [
   {
@@ -28,9 +29,14 @@ const routes = [
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     component: About
   },
+  {
+    path: '/skinDisplay',
+    name: 'skinDisplay',
+    component: SkinDisplay
+  }
 ]
 
 const router = createRouter({

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { defineComponent, nextTick, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
     name: 'Accordion',

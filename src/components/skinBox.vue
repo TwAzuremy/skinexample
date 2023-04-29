@@ -2,6 +2,7 @@
     <div class="skin-box" :data-author="author">
         <span class="skin-title" :title="title">{{ title }}</span>
         <img :src="skin" :alt="title" @click="img">
+        <span v-if="'warehouse' === showModel" class="author-upload">上传者: {{ uploadAuthor }}</span>
         <div class="skin-info warehouseStyle" v-if="'warehouse' === showModel">
             <span class="model info-left" :class="model">{{ model }}</span>
             <div class="info-right">
@@ -81,8 +82,8 @@ export default defineComponent({
             },
             default: 'warehouse'
         },
-        originalSkin: {
-            type: String
+        clickData: {
+            
         },
         skin: {
             type: String
@@ -109,6 +110,9 @@ export default defineComponent({
         favorite: {
             type: Number,
             default: 0
+        },
+        uploadAuthor: {
+            type: String
         }
     },
     components: {
@@ -119,7 +123,7 @@ export default defineComponent({
             this.$emit('editEvent', 1)
         },
         img() {
-            this.$emit('imgEvent', this.originalSkin)
+            this.$emit('imgEvent', this.clickData)
         }
     }
 })
@@ -153,6 +157,14 @@ export default defineComponent({
         height: 240px;
         user-select: none;
         cursor: pointer;
+    }
+
+    .author-upload {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 12px;
+        font-size: 12px;
+        color: rgba($font-color, $alpha: .6);
     }
 
     .skin-info {

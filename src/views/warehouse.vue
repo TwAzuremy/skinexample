@@ -23,7 +23,8 @@
             <ul class="skin-container">
                 <li class="container" v-for="(row, i) in skinContainerList" :key="i">
                     <skin-box :style="{ 'min-width': (196 + fillWidth) + 'px' }" v-for="(col, j) in row" :key="j"
-                        :skin="col.imgURL" :title="col.title" :model="col.model"></skin-box>
+                        :skin="col.imgURL" :title="col.title" :model="col.model" :uploadAuthor="col.author" :clickData="col"
+                        @imgEvent="toSkinDisplay"></skin-box>
                 </li>
             </ul>
         </div>
@@ -40,6 +41,7 @@ import { defineComponent, ref, onMounted, onUnmounted, computed } from 'vue';
 import { debounce } from '@/assets/js/debounce'
 import { drawSkinCanvasToImg } from '@/assets/js/drawSkinCanvasToImg'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
     name: "Warehouse",
@@ -51,6 +53,7 @@ export default defineComponent({
         const skinContainerList = ref([])
         const fillWidth = ref(0)
         const skinContainer = ref(null)
+        const router = useRouter()
 
         function initSkinContainer() {
             const component_width = 196 + 12
@@ -86,6 +89,19 @@ export default defineComponent({
         const windowWidth = ref(window.innerWidth)
         const debouncedResizeHandler = debounce(initSkinContainer, 500)
 
+        const toSkinDisplay = function (data) {
+            router.push({
+                name: 'skinDisplay',
+                state: {
+                    skin: data.skin,
+                    name: data.title,
+                    author: data.author,
+                    model: data.model,
+                    time: data.uploadTime
+                }
+            })
+        }
+
         onMounted(() => {
             skinList.value = drawSkinCanvasToImg(canvas, skinList.value)
             initSkinContainer()
@@ -95,10 +111,11 @@ export default defineComponent({
 
         onUnmounted(() => {
             window.removeEventListener('resize', debouncedResizeHandler)
+            console.clear()
         })
 
         return {
-            skinList, skinContainerList, fillWidth, skinContainer, windowWidth
+            skinList, skinContainerList, fillWidth, skinContainer, windowWidth, toSkinDisplay
         }
     }
 })

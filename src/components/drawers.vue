@@ -74,6 +74,10 @@ export default defineComponent({
         margin-bottom: 12px;
     }
 
+    .container {
+        flex: 1;
+    }
+
     &.open {
         animation: open .3s ease-in-out forwards;
     }

@@ -56,6 +56,12 @@ export default {
             this.inputValue = value
 
             this.selectIndex = index
+        },
+        getIndex() {
+            return this.selectIndex
+        },
+        getValue() {
+            return this.inputValue
         }
     }
 }

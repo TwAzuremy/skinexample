@@ -59,7 +59,7 @@ export default defineComponent({
         const slider = ref(null)
         const number = ref(null)
         const sliderProccess = ref(null)
-        var value = ref(props.val)
+        const value = ref(props.val);
         let stopWatching
 
         function sliderValueChange() {
@@ -75,7 +75,7 @@ export default defineComponent({
                 return
             }
 
-            var numbVal = Number(number.value.value)
+            const numbVal = Number(number.value.value);
             value.value = numbVal > props.max ? props.max : numbVal
         }
 
@@ -98,7 +98,7 @@ export default defineComponent({
             number.value.addEventListener('input', checkDigit)
         })
 
-        stopWatching = watch(value, (newVal, oldVal) => {
+        stopWatching = watch(value, () => {
             sliderProccessChange()
         })
 

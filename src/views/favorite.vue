@@ -9,7 +9,7 @@
         <div class="fav-container">
             <div class="skin-container">
                 <skin-box v-for="(skin, index) in skinList" :key="index" :skin="skin.imgURL" showModel="favorite"
-                    :title="skin.alias" :originalSkin="skin.skin" @imgEvent="openSkinView3d"></skin-box>
+                    :title="skin.alias" :clickData="skin.skin" @imgEvent="openSkinView3d"></skin-box>
             </div>
         </div>
         <drawers ref="drawersRef" :isOpen="false">
@@ -24,7 +24,7 @@ import Pagination from '@/components/pagination.vue';
 import SkinBox from '@/components/skinBox.vue';
 import Drawers from '@/components/drawers.vue';
 import SkinView3d from '@/components/skinView3d.vue';
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { defineComponent, ref, onMounted, computed, onUnmounted } from 'vue';
 
 import { drawSkinCanvasToImg } from '@/assets/js/drawSkinCanvasToImg'
 import { useStore } from 'vuex';
@@ -36,7 +36,7 @@ export default defineComponent({
     },
     setup() {
         const data = computed(() => useStore().state.favorite.skinData)
-        var skinList = data.value
+        let skinList = data.value;
 
         const canvas = document.createElement('canvas')
         canvas.height = 240
@@ -51,11 +51,15 @@ export default defineComponent({
 
         function openSkinView3d(data) {
             openDrawers()
-            skinView3dRef.value.loadSkin(data)
+            skinView3dRef.value.reloadSkin(data)
         }
 
         onMounted(() => {
             skinList = drawSkinCanvasToImg(canvas, skinList)
+        })
+
+        onUnmounted(() => {
+            console.clear()
         })
 
         return { skinList, drawersRef, openDrawers, openSkinView3d, skinView3dRef }
@@ -93,6 +97,10 @@ export default defineComponent({
                 min-width: 220px;
             }
         }
+    }
+
+    .skin-view3d {
+        height: 100%;
     }
 }
 </style>
