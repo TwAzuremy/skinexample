@@ -106,7 +106,7 @@ export default defineComponent({
             setTimeout(() => {
                 skinViewer.width = canvasContainer.value.offsetWidth
                 skinViewer.height = canvasContainer.value.offsetHeight
-            }, 300)
+            }, 100)
 
             skinViewer.loadSkin(skin.value, {
                 model: skinModel[dropdownSkinModel.value?.getIndex() ?? 0]

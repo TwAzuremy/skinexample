@@ -43,26 +43,25 @@ export default {
 
     &-list {
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
+        background: linear-gradient($minorBg, $panelBg);
+        border-radius: 4px;
     }
 
     &-title {
         @include cols();
         align-items: center;
-        background-color: $minorBg;
+        background-color: transparent;
         height: 40px;
         padding: 12px;
         font-size: 18px;
         font-weight: 600;
         color: $font-color-dark;
-        border-top-right-radius: 4px;
-        border-top-left-radius: 4px;
     }
 
     &-show {
         padding: 12px;
         background-color: $panelBg;
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-radius: 8px 8px 4px 4px;
     }
 
     &-row {

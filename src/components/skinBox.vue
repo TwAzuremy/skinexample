@@ -83,7 +83,7 @@ export default defineComponent({
             default: 'warehouse'
         },
         clickData: {
-            
+
         },
         skin: {
             type: String
