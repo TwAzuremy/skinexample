@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown">
+    <div class="dropdown" :data-select="selectIndex">
         <input type="text" readonly :value="inputValue" @click="show('auto')">
         <a class="svg-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -113,6 +113,7 @@ export default {
         overflow-y: scroll;
         opacity: 0;
         pointer-events: none;
+        z-index: 10;
         transition: opacity .3s linear,
             height .2s ease-in-out;
 

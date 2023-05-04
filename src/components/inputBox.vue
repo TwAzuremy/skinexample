@@ -21,11 +21,15 @@ export default {
         ph: {
             type: String,
             default: ''
+        },
+        defaultValue: {
+            type: String,
+            default: ''
         }
     },
     data() {
         return {
-            value: ''
+            value: this.defaultValue
         }
     },
     methods: {
@@ -58,7 +62,7 @@ export default {
             top: 50%;
             right: 8px;
             transform: translateY(-50%);
-            color: $font-color;
+            color: rgba($font-color, $alpha: .6);
             cursor: pointer;
             transition: color .2s ease-in-out;
 

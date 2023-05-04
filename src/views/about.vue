@@ -42,7 +42,7 @@
                                 <span class="text">Three.js</span>
                             </div>
                         </li>
-                        <li class="source-name">
+                        <li class="source-name" v-if="false">
                             <div>
                                 <img src="/img/jquery.png" alt="jquery logo">
                                 <span class="text">JQuery</span>
@@ -74,7 +74,7 @@
                                 <a href="https://github.com/mrdoob/three.js/" target="_blank" class="jumpButton">Github</a>
                             </div>
                         </li>
-                        <li class="source-content">
+                        <li class="source-content" v-if="false">
                             <span class="source-text">JQuery 是一个快速，小型且功能丰富的JavaScript库</span>
                             <div class="source-button-group">
                                 <a href="https://jquery.com" target="_blank" class="jumpButton">官网</a>

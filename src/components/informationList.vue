@@ -43,8 +43,8 @@ export default {
 
     &-list {
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
-        background: linear-gradient($minorBg, $panelBg);
-        border-radius: 4px;
+        background: linear-gradient($minorBg, $minorBg, $panelBg);
+        border-radius: 8px;
     }
 
     &-title {
@@ -61,7 +61,7 @@ export default {
     &-show {
         padding: 12px;
         background-color: $panelBg;
-        border-radius: 8px 8px 4px 4px;
+        border-radius: 8px;
     }
 
     &-row {

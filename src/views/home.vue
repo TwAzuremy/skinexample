@@ -7,6 +7,7 @@
             </home-card>
             <home-card title="进度" dividerColor="#C785C8">
                 <p>还在努力学习并施工中... 🚚</p>
+                <p>目前正在施工 <a href="#/settings">Settings</a> 页面</p>
             </home-card>
         </div>
         <div class="row row-2">
