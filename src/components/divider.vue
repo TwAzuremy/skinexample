@@ -30,7 +30,6 @@ export default {
 
 <style lang="scss">
 .divider {
-    border-radius: 1px;
     margin: 8px 0;
 }
 </style>

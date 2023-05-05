@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { ref, toRefs, watch } from 'vue';
+
 export default {
     name: 'InputBox',
     props: {
@@ -27,14 +29,20 @@ export default {
             default: ''
         }
     },
-    data() {
-        return {
-            value: this.defaultValue
+    setup(props) {
+        const { defaultValue } = toRefs(props)
+        const value = ref(defaultValue.value)
+
+        function clear() {
+            value.value = ''
         }
-    },
-    methods: {
-        clear() {
-            this.value = ''
+
+        watch(defaultValue, (newVal) => {
+            value.value = newVal
+        })
+
+        return {
+            value, clear
         }
     }
 }

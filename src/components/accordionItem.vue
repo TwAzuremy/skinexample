@@ -42,7 +42,8 @@ export default defineComponent({
         font-size: 14px;
         color: $font-color;
         font-weight: 400;
-        margin-top: .08rem;
+        // margin-top: .08rem;
+        line-height: 20px;
         transition: font-weight .2s, color .2s;
     }
 
