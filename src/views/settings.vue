@@ -16,46 +16,49 @@
             <panel title="自定义外观">
                 <settings-option title="整体外观" description="适用于全局颜色设置" model="dropdown" :extension="true" :condition="3"
                     :data="['跟随系统', '浅色模式', '深色模式', '自定义']">
-                    <div class="custom-extension color-selector">
-                        <div class="theme-option">
-                            <label class="theme-default" v-for="[val, index] in entries(theme)" :key="index" @click="selectTheme(val[0])">
-                                <input type="radio" name="themeDefault" :checked="index === 0">
-                                <a class="theme-preview">
-                                    <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"
-                                        class="feather feather-columns" stroke-linejoin="round" stroke-linecap="round">
-                                        <rect stroke="currentColor" rx="4" stroke-width="4" height="60" width="24" y="2"
-                                            x="2" :fill="val[1][1]" />
-                                        <rect rx="4" height="60" width="44" y="2" x="18" stroke-width="4"
-                                            stroke="currentColor" :fill="val[1][0]" />
-                                        <line stroke="currentColor" y2="62" x2="18" y1="2" x1="18" stroke-width="4"
-                                            fill="none" />
-                                    </svg>
-                                </a>
-                                <span class="theme-description">{{ val[0] }}</span>
-                            </label>
-                        </div>
-                        <divider></divider>
-                        <div class="theme-customer">
-                            <ul class="theme-customer-text">
-                                <li>背景颜色</li>
-                                <li>卡片颜色</li>
-                                <li>第三色彩</li>
-                                <li>字体颜色</li>
-                            </ul>
-                            <ul class="theme-customer-input">
-                                <li><input-box ph="十六进制颜色" :defaultValue="themeColor.background"></input-box></li>
-                                <li><input-box ph="十六进制颜色" :defaultValue="themeColor.panel"></input-box></li>
-                                <li><input-box ph="十六进制颜色" :defaultValue="themeColor.font"></input-box></li>
-                                <li><input-box ph="十六进制颜色" :defaultValue="themeColor.minor"></input-box></li>
-                            </ul>
-                            <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
-                                <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
-                                    <p class="theme-preview-text" :style="{ 'color': themeColor.font }">字体颜色</p>
-                                    <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
+                    <template v-slot:extension>
+                        <div class="custom-extension color-selector">
+                            <div class="theme-option">
+                                <label class="theme-default" v-for="[val, index] in entries(theme)" :key="index"
+                                    @click="selectTheme(val[0])">
+                                    <input type="radio" name="themeDefault" :checked="index === 0">
+                                    <a class="theme-preview">
+                                        <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"
+                                            class="feather feather-columns" stroke-linejoin="round" stroke-linecap="round">
+                                            <rect stroke="currentColor" rx="4" stroke-width="4" height="60" width="24" y="2"
+                                                x="2" :fill="val[1][1]" />
+                                            <rect rx="4" height="60" width="44" y="2" x="18" stroke-width="4"
+                                                stroke="currentColor" :fill="val[1][0]" />
+                                            <line stroke="currentColor" y2="62" x2="18" y1="2" x1="18" stroke-width="4"
+                                                fill="none" />
+                                        </svg>
+                                    </a>
+                                    <span class="theme-description">{{ val[0] }}</span>
+                                </label>
+                            </div>
+                            <divider></divider>
+                            <div class="theme-customer">
+                                <ul class="theme-customer-text">
+                                    <li>背景颜色</li>
+                                    <li>卡片颜色</li>
+                                    <li>第三色彩</li>
+                                    <li>字体颜色</li>
+                                </ul>
+                                <ul class="theme-customer-input">
+                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.background"></input-box></li>
+                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.panel"></input-box></li>
+                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.font"></input-box></li>
+                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.minor"></input-box></li>
+                                </ul>
+                                <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
+                                    <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
+                                        <p class="theme-preview-text" :style="{ 'color': themeColor.font }">字体颜色</p>
+                                        <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
                 </settings-option>
             </panel>
             <panel title="设置卡展示">
@@ -63,6 +66,23 @@
                     <settings-option title="下拉菜单" description="适用于多种选择" model="dropdown"
                         :data="['选项 1', '选项 2', '选项 3', '选项 4']"></settings-option>
                     <settings-option title="开关" description="适用于打开或关闭某个项目" model="switch"></settings-option>
+                </div>
+            </panel>
+            <panel title="测试页面">
+                <div class="settings-option-container">
+                    <settings-option title="测试页面" description="跳转至 404 页面" model="custom">
+                        <template v-slot:custom>
+                            <a class="option-jump" @click="to('this_is_not_found')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-arrow-left">
+                                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                                    <polyline points="12 19 5 12 12 5"></polyline>
+                                </svg>
+                                <span>跳转至 404</span>
+                            </a>
+                        </template>
+                    </settings-option>
                 </div>
             </panel>
         </div>
@@ -107,12 +127,16 @@ export default {
             themeColor.value.minor = theme[key][3]
         }
 
+        function to(link) {
+            window.location.href = window.location.href.replace('settings', link)
+        }
+
         onMounted(() => {
             selectTheme('System')
         })
 
         return {
-            theme, entries, selectTheme, themeColor
+            theme, entries, selectTheme, themeColor, to
         }
     }
 }
@@ -139,6 +163,13 @@ export default {
 
         .settings-option:not(:first-child) {
             margin-top: 8px;
+        }
+
+        .option-jump {
+            @include jump-button();
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
         }
     }
 

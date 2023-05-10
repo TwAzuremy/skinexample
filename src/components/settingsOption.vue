@@ -8,10 +8,11 @@
             <div class="settings-switch">
                 <Switch v-if="model === 'switch'"></Switch>
                 <Dropdown v-if="model === 'dropdown'" :data="data" @dd-select="dropdownCondition"></Dropdown>
+                <slot name="custom" v-if="model === 'custom'"></slot>
             </div>
         </div>
         <div class="settings-extension" :class="{ 'open': open }" v-if="extension" ref="extensionContainer">
-            <slot></slot>
+            <slot name="extension"></slot>
         </div>
     </div>
 </template>
@@ -67,11 +68,7 @@ export default {
         }
 
         function dropdownCondition(index) {
-            if (props.extension && index === props.condition) {
-                toggleExtension(true)
-            } else {
-                toggleExtension(false)
-            }
+            toggleExtension(props.extension && index === props.condition)
         }
 
         return {

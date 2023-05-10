@@ -83,10 +83,19 @@
 <script>
 import divider from '@/components/divider.vue';
 import iconButton from '@/components/iconButton.vue';
+import { watch } from 'vue';
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 
 export default {
     components: {
         divider, iconButton
+    },
+    setup() {
+        let route = useRoute()
+
+        watch(() => route.path, (newVal, oldVal) => {
+            // console.log(newVal)
+        })
     }
 }
 </script>

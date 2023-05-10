@@ -16,7 +16,7 @@ export default {
 .switch {
     position: relative;
     display: inline-block;
-    width: 48px;
+    width: 56px;
     height: 30px;
     border-radius: 17px;
     background-color: #CCCCCC;
@@ -43,7 +43,7 @@ export default {
         background-color: $minorBg;
 
         &::before {
-            left: 22px;
+            left: 30px;
         }
     }
 }

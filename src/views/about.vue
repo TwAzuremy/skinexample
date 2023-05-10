@@ -198,23 +198,7 @@ export default defineComponent({
 @import '../global.scss';
 
 a.jumpButton {
-    @include button();
-    min-width: 100px;
-    max-height: 40px;
-    justify-content: center;
-    border: 1px solid $font-color;
-    color: $font-color;
-    background-color: transparent;
-    transition: color .15s ease-in-out,
-        background-color .2s ease-in-out;
-
-    &:hover {
-        transform: none;
-        box-shadow: none;
-        border-color: $minorBg;
-        color: $minorBg;
-        background-color: rgba($minorBg, $alpha: .08);
-    }
+    @include jump-button();
 }
 
 .about-container {
@@ -224,7 +208,6 @@ a.jumpButton {
     .project {
         @include cols();
         align-items: center;
-        max-width: 500px;
 
         .author-avatar,
         .project-img {

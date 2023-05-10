@@ -174,7 +174,7 @@ export default defineComponent({
                 const paused = skinViewer.animation?.paused !== undefined
                 play.value = skinViewer.autoRotate || (paused && !skinViewer.animation.paused)
             },
-            switchModels: (index) => {
+            switchModels: () => {
                 reloadSkin(skin.value)
             }
         }
