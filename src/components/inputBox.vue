@@ -64,7 +64,6 @@ export default {
         padding: 0 32px 0 12px;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.08);
-        font-family: $global-font-family;
 
         +svg {
             position: absolute;

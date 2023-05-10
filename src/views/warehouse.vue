@@ -128,7 +128,7 @@ export default defineComponent({
     @include rows();
     align-items: center;
     height: 100%;
-    font-family: $global-font-family;
+    font-family: var(--font-family);
 
     .up {
         @include rows();

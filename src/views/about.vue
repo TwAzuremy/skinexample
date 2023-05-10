@@ -209,7 +209,7 @@ a.jumpButton {
 }
 
 .about {
-    font-family: $global-font-family;
+    font-family: var(--font-family);
 }
 
 .about-container {

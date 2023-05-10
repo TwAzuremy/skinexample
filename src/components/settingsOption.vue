@@ -7,7 +7,7 @@
             </div>
             <div class="settings-switch">
                 <Switch v-if="model === 'switch'"></Switch>
-                <Dropdown v-if="model === 'dropdown'" :data="data" @dd-select="dropdownCondition"></Dropdown>
+                <Dropdown v-if="model === 'dropdown'" :data="data" :default="defaultData" @dd-select="dropdownCondition"></Dropdown>
                 <slot name="custom" v-if="model === 'custom'"></slot>
             </div>
         </div>
@@ -46,6 +46,14 @@ export default {
         condition: {
             default: ''
         },
+        defaultData: {
+            type: Number,
+            default: 0
+        },
+        func: {
+            type: Function,
+            default: null
+        }
     },
     components: {
         Switch,
@@ -69,6 +77,10 @@ export default {
 
         function dropdownCondition(index) {
             toggleExtension(props.extension && index === props.condition)
+
+            if (props.func !== null) {
+                props.func(index)
+            }
         }
 
         return {

@@ -1,3 +1,7 @@
+:root {
+    --font-family: 'Resource-Han-Rounded', 'Consolas', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;

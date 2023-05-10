@@ -14,52 +14,57 @@
         </div>
         <div class="settings-panel">
             <panel title="自定义外观">
-                <settings-option title="整体外观" description="适用于全局颜色设置" model="dropdown" :extension="true" :condition="3"
-                    :data="['跟随系统', '浅色模式', '深色模式', '自定义']">
-                    <template v-slot:extension>
-                        <div class="custom-extension color-selector">
-                            <div class="theme-option">
-                                <label class="theme-default" v-for="[val, index] in entries(theme)" :key="index"
-                                    @click="selectTheme(val[0])">
-                                    <input type="radio" name="themeDefault" :checked="index === 0">
-                                    <a class="theme-preview">
-                                        <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"
-                                            class="feather feather-columns" stroke-linejoin="round" stroke-linecap="round">
-                                            <rect stroke="currentColor" rx="4" stroke-width="4" height="60" width="24" y="2"
-                                                x="2" :fill="val[1][1]" />
-                                            <rect rx="4" height="60" width="44" y="2" x="18" stroke-width="4"
-                                                stroke="currentColor" :fill="val[1][0]" />
-                                            <line stroke="currentColor" y2="62" x2="18" y1="2" x1="18" stroke-width="4"
-                                                fill="none" />
-                                        </svg>
-                                    </a>
-                                    <span class="theme-description">{{ val[0] }}</span>
-                                </label>
-                            </div>
-                            <divider></divider>
-                            <div class="theme-customer">
-                                <ul class="theme-customer-text">
-                                    <li>背景颜色</li>
-                                    <li>卡片颜色</li>
-                                    <li>第三色彩</li>
-                                    <li>字体颜色</li>
-                                </ul>
-                                <ul class="theme-customer-input">
-                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.background"></input-box></li>
-                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.panel"></input-box></li>
-                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.font"></input-box></li>
-                                    <li><input-box ph="十六进制颜色" :defaultValue="themeColor.minor"></input-box></li>
-                                </ul>
-                                <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
-                                    <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
-                                        <p class="theme-preview-text" :style="{ 'color': themeColor.font }">字体颜色</p>
-                                        <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
+                <div class="settings-option-container">
+                    <settings-option title="整体外观" description="适用于全局颜色设置" model="dropdown" :extension="true" :condition="3"
+                        :data="['跟随系统', '浅色模式', '深色模式', '自定义']">
+                        <template v-slot:extension>
+                            <div class="custom-extension color-selector">
+                                <div class="theme-option">
+                                    <label class="theme-default" v-for="[val, index] in entries(theme)" :key="index"
+                                        @click="selectTheme(val[0])">
+                                        <input type="radio" name="themeDefault" :checked="index === 0">
+                                        <a class="theme-preview">
+                                            <svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"
+                                                class="feather feather-columns" stroke-linejoin="round"
+                                                stroke-linecap="round">
+                                                <rect stroke="currentColor" rx="4" stroke-width="4" height="60" width="24"
+                                                    y="2" x="2" :fill="val[1][1]" />
+                                                <rect rx="4" height="60" width="44" y="2" x="18" stroke-width="4"
+                                                    stroke="currentColor" :fill="val[1][0]" />
+                                                <line stroke="currentColor" y2="62" x2="18" y1="2" x1="18" stroke-width="4"
+                                                    fill="none" />
+                                            </svg>
+                                        </a>
+                                        <span class="theme-description">{{ val[0] }}</span>
+                                    </label>
+                                </div>
+                                <divider></divider>
+                                <div class="theme-customer">
+                                    <ul class="theme-customer-text">
+                                        <li>背景颜色</li>
+                                        <li>卡片颜色</li>
+                                        <li>第三色彩</li>
+                                        <li>字体颜色</li>
+                                    </ul>
+                                    <ul class="theme-customer-input">
+                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.background"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.panel"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.font"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.minor"></input-box></li>
+                                    </ul>
+                                    <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
+                                        <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
+                                            <p class="theme-preview-text" :style="{ 'color': themeColor.font }">字体颜色</p>
+                                            <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </template>
-                </settings-option>
+                        </template>
+                    </settings-option>
+                    <settings-option title="字体样式" description="适用于全局字体样式" model="dropdown" :data="font" :func="changeFont"
+                        :defaultData="1"></settings-option>
+                </div>
             </panel>
             <panel title="设置卡展示">
                 <div class="settings-option-container">
@@ -109,6 +114,10 @@ export default {
         const themeColor = ref({
             background: '', panel: '', font: '', minor: ''
         })
+        const font = [
+            'Consolas',
+            'Resource-Han-Rounded'
+        ]
 
         function entries(map) {
             const result = []
@@ -131,12 +140,16 @@ export default {
             window.location.href = window.location.href.replace('settings', link)
         }
 
+        const changeFont = function (index) {
+            document.documentElement.style.setProperty('--font-family', `'${font[index]}', 'Consolas', sans-serif`)
+        }
+
         onMounted(() => {
             selectTheme('System')
         })
 
         return {
-            theme, entries, selectTheme, themeColor, to
+            theme, entries, selectTheme, themeColor, to, changeFont, font
         }
     }
 }
@@ -148,7 +161,8 @@ export default {
 .settings {
     @include rows();
     margin-top: 24px;
-    font-family: $global-font-family;
+    padding-bottom: 12px;
+    font-family: var(--font-family);
 
     &-searchBox {
         @include rows();

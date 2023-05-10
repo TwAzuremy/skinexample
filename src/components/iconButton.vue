@@ -28,7 +28,7 @@ export default {
     .text {
         font-weight: 600;
         margin-left: 8px;
-        font-family: $global-font-family;
+        font-family: var(--font-family);
     }
 }
 </style>

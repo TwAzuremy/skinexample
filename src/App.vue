@@ -115,6 +115,12 @@ export default {
     box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.08);
     background-color: $panelBg;
 
+    .side-title {
+        font-size: 32px;
+        font-family: var(--font-family);
+        color: $font-color;
+    }
+
     .divider {
         margin-bottom: 0;
     }

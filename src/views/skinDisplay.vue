@@ -60,7 +60,7 @@ export default {
     position: relative;
     height: 100%;
     @include cols();
-    font-family: $global-font-family;
+    font-family: var(--font-family);
 
     .skin-container {
         @include cols();

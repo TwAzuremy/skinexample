@@ -62,7 +62,7 @@ export default {
     @include cols();
     @include center();
     height: 100%;
-    font-family: $global-font-family;
+    font-family: var(--font-family);
 }
 
 .notfound {

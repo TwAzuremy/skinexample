@@ -115,8 +115,8 @@ export default defineComponent({
         function reloadSkin(skin_input) {
             skin.value = skin_input
             setTimeout(() => {
-                skinViewer.width = canvasContainer.value.offsetWidth
-                skinViewer.height = canvasContainer.value.offsetHeight
+                skinViewer.width = canvasContainer.value.offsetWidth - 16
+                skinViewer.height = canvasContainer.value.offsetHeight - 16
             }, 100)
 
             skinViewer.loadSkin(skin.value, {
@@ -254,14 +254,16 @@ export default defineComponent({
 
         .canvas-control {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 0;
+            right: 0;
+            padding: 8px;
             @include cols();
             gap: 8px;
+            background-color: $panelBg;
+            border-radius: 0 4px 0 4px;
 
             .animation-button {
                 color: rgba($font-color, $alpha: .6);
-                background-color: $panelBg;
 
                 &:hover {
                     color: $minorBg;
