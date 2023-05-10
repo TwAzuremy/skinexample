@@ -148,6 +148,7 @@ export default {
 .settings {
     @include rows();
     margin-top: 24px;
+    font-family: $global-font-family;
 
     &-searchBox {
         @include rows();

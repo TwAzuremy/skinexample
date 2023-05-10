@@ -75,6 +75,7 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     padding-top: 12px;
+    font-family: $global-font-family;
 
     .top {
         width: 100%;

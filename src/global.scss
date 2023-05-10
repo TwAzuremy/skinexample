@@ -10,6 +10,8 @@ $green: #00C85B;
 $blue: #0099ff;
 $yellow: #FFD87D;
 
+$global-font-family: 'Resource-Han-Rounded', 'Consolas', sans-serif;
+
 @mixin cols() {
     display: flex;
     flex-direction: row;

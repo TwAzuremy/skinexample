@@ -92,6 +92,7 @@
                         <li class="source-name">minecraft-skin-render</li>
                         <li class="source-name">skinview3d</li>
                         <li class="source-name">Minecraft PFP</li>
+                        <li class="source-name">Resource-Han-Rounded</li>
                     </ul>
                     <ul class="right">
                         <li class="source-content">
@@ -124,6 +125,12 @@
                                 <a href="https://minecraftpfp.com" target="_blank" class="jumpButton">官网</a>
                                 <a href="https://github.com/MauritsWilke/mcpfp" target="_blank"
                                     class="jumpButton">Github</a>
+                            </div>
+                        </li>
+                        <li class="source-content">
+                            <span class="source-text">TrueType Font</span>
+                            <div class="source-button-group">
+                                <a href="https://github.com/CyanoHao/Resource-Han-Rounded" target="_blank" class="jumpButton">Github</a>
                             </div>
                         </li>
                     </ul>
@@ -199,6 +206,10 @@ export default defineComponent({
 
 a.jumpButton {
     @include jump-button();
+}
+
+.about {
+    font-family: $global-font-family;
 }
 
 .about-container {

@@ -25,9 +25,10 @@ export default {
     color: $font-color;
     font-size: 14px;
 
-    &:has(span.text) .text {
+    .text {
         font-weight: 600;
         margin-left: 8px;
+        font-family: $global-font-family;
     }
 }
 </style>

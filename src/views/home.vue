@@ -36,6 +36,7 @@ export default {
     padding: 12px 0;
     @include cols();
     gap: 12px;
+    font-family: $global-font-family;
 
     .row {
         @include rows();

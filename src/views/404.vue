@@ -62,6 +62,7 @@ export default {
     @include cols();
     @include center();
     height: 100%;
+    font-family: $global-font-family;
 }
 
 .notfound {
@@ -73,13 +74,13 @@ export default {
 
     &-code {
         font-family: 'minecraft';
-        font-size: 120px;
+        font-size: 136px;
         color: rgba($font-color, $alpha: .8);
         text-shadow: 0 2px 4px rgba($color: #000000, $alpha: .2);
     }
 
     &-title {
-        font-size: 40px;
+        font-size: 32px;
         color: $font-color;
     }
 

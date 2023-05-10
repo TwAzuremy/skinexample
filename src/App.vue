@@ -84,7 +84,7 @@
 import divider from '@/components/divider.vue';
 import iconButton from '@/components/iconButton.vue';
 import { watch } from 'vue';
-import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 export default {
     components: {
