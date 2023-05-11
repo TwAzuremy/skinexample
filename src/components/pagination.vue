@@ -146,7 +146,7 @@ export default {
     ul {
         @include cols();
         @include center();
-        color: $font-color;
+        color: var(--font-color-white);
 
         li {
             height: 40px;
@@ -168,7 +168,7 @@ export default {
             }
 
             &.feed {
-                background-color: $panelBg;
+                background-color: var(--panel-background);
                 border-radius: 4px;
                 box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
                 font-size: 14px;
@@ -201,13 +201,13 @@ export default {
             }
 
             &:not([data-page="..."]):hover {
-                color: $minorBg;
+                color: var(--minor-color);
             }
 
             &.current {
                 font-weight: 600;
-                color: $minorBg;
-                background-color: $panelBg;
+                color: var(--minor-color);
+                background-color: var(--panel-background);
                 box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
             }
         }

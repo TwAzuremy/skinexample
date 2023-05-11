@@ -88,12 +88,12 @@ export default {
         top: 12px;
         left: 0;
         @include button();
-        color: $font-color;
+        color: var(--font-color-white);
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
-        background-color: $panelBg;
+        background-color: var(--panel-background);
 
         &:hover {
-            color: $minorBg;
+            color: var(--minor-color);
         }
     }
 }

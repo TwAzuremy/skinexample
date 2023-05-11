@@ -1,4 +1,18 @@
 :root {
+    --main-background: #F6F8FA;
+    --minor-color: #4091FF;
+    --panel-background: #FFFFFF;
+    --font-color-white: #212121;
+    --font-color-black: #FFFFFF;
+    --track-color: #4091FF99;
+    --track-slot-color: #E0E0E099;
+    --button-color: #4091FF19;
+    --border-color-default: #21212166;
+    --border-color-hover: #212121CC;
+    --border-color-focus: var(--minor-color);
+    --switch-not-checked: #CCCCCC;
+    --switch-checked: var(--minor-color);
+    --switch-ball: var(--panel-background);
     --font-family: 'Resource-Han-Rounded', 'Consolas', sans-serif;
 }
 
@@ -13,7 +27,7 @@ body,
 #app {
     width: 100vw;
     height: 100vh;
-    background-color: #F6F8FA;
+    background-color: var(--main-background);
     overflow: hidden;
 }
 

@@ -26,7 +26,7 @@ export default {
     justify-content: flex-start;
 
     &-title {
-        color: $font-color;
+        color: var(--font-color-white);
         font-size: 14px;
     }
 

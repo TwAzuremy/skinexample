@@ -43,7 +43,7 @@ export default {
 
     &-list {
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
-        background: linear-gradient($minorBg, $minorBg, $panelBg);
+        background: linear-gradient(var(--minor-color), var(--minor-color), var(--panel-background));
         border-radius: 8px;
     }
 
@@ -55,12 +55,12 @@ export default {
         padding: 12px;
         font-size: 18px;
         font-weight: 600;
-        color: $font-color-dark;
+        color: var(--font-color-black);
     }
 
     &-show {
         padding: 12px;
-        background-color: $panelBg;
+        background-color: var(--panel-background);
         border-radius: 8px;
     }
 

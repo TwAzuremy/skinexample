@@ -43,18 +43,23 @@
                                     <ul class="theme-customer-text">
                                         <li>背景颜色</li>
                                         <li>卡片颜色</li>
+                                        <li>浅色主题字体</li>
+                                        <li>暗色主题字体</li>
                                         <li>第三色彩</li>
-                                        <li>字体颜色</li>
                                     </ul>
                                     <ul class="theme-customer-input">
-                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.background"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.panel"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.font"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :defaultValue="themeColor.minor"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeBackground" :defaultValue="themeColor.background"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changePanel" :defaultValue="themeColor.panel"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontLight" :defaultValue="themeColor.fontLight"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontDark" :defaultValue="themeColor.fontDark"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeMinor" :defaultValue="themeColor.minor"></input-box></li>
                                     </ul>
                                     <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
                                         <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
-                                            <p class="theme-preview-text" :style="{ 'color': themeColor.font }">字体颜色</p>
+                                            <p class="theme-preview-text" :style="{ 'color': themeColor.fontLight }">浅色主题字体
+                                            </p>
+                                            <p class="theme-preview-text" :style="{ 'color': themeColor.fontDark }">暗色主题字体
+                                            </p>
                                             <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
                                         </div>
                                     </div>
@@ -112,7 +117,7 @@ export default {
     setup() {
         const theme = computed(() => useStore().state.theme.theme).value
         const themeColor = ref({
-            background: '', panel: '', font: '', minor: ''
+            background: '', panel: '', fontLight: '', fontDark: '', minor: ''
         })
         const font = [
             'Consolas',
@@ -132,8 +137,9 @@ export default {
         function selectTheme(key) {
             themeColor.value.background = theme[key][0]
             themeColor.value.panel = theme[key][1]
-            themeColor.value.font = theme[key][2]
-            themeColor.value.minor = theme[key][3]
+            themeColor.value.fontLight = theme[key][2]
+            themeColor.value.fontDark = theme[key][3]
+            themeColor.value.minor = theme[key][4]
         }
 
         function to(link) {
@@ -144,12 +150,30 @@ export default {
             document.documentElement.style.setProperty('--font-family', `'${font[index]}', 'Consolas', sans-serif`)
         }
 
+        const changeTheme = {
+            changeBackground: (color) => {
+                themeColor.value.background = color
+            },
+            changePanel: (color) => {
+                themeColor.value.panel = color
+            },
+            changeFontLight: (color) => {
+                themeColor.value.fontLight = color
+            },
+            changeFontDark: (color) => {
+                themeColor.value.fontDark = color
+            },
+            changeMinor: (color) => {
+                themeColor.value.minor = color
+            },
+        }
+
         onMounted(() => {
             selectTheme('System')
         })
 
         return {
-            theme, entries, selectTheme, themeColor, to, changeFont, font
+            theme, entries, selectTheme, themeColor, to, changeFont, font, changeTheme
         }
     }
 }
@@ -210,7 +234,7 @@ export default {
                     }
 
                     .theme-description {
-                        color: $font-color;
+                        color: var(--font-color-white);
                         font-size: 14px;
                         font-weight: 600;
                         transition: color .2s ease-in-out;
@@ -222,12 +246,12 @@ export default {
                         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .2);
 
                         .theme-description {
-                            color: $minorBg;
+                            color: var(--minor-color);
                         }
                     }
 
                     svg {
-                        color: $font-color;
+                        color: var(--font-color-white);
                     }
                 }
 

@@ -19,7 +19,7 @@ export default {
     width: 56px;
     height: 30px;
     border-radius: 17px;
-    background-color: #CCCCCC;
+    background-color: var(--switch-not-checked);
     transition: background-color .3s ease-in-out;
     cursor: pointer;
 
@@ -30,7 +30,7 @@ export default {
         left: 4px;
         width: 22px;
         height: 22px;
-        background-color: #FFFFFF;
+        background-color: var(--switch-ball);
         border-radius: 50%;
         transition: left .2s ease-in-out;
     }
@@ -40,7 +40,7 @@ export default {
     }
 
     &:has(input[type="checkbox"]:checked) {
-        background-color: $minorBg;
+        background-color: var(--switch-checked);
 
         &::before {
             left: 30px;

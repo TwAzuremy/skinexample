@@ -22,7 +22,7 @@ export default {
 
 .icon-button {
     @include button();
-    color: $font-color;
+    color: var(--font-color-white);
     font-size: 14px;
 
     .text {

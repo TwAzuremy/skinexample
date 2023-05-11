@@ -39,19 +39,19 @@ export default {
     padding: 12px;
     border-radius: 8px;
     border-top: 4px solid var(--topColor);
-    background-color: $panelBg;
+    background-color: var(--panel-background);
 
     .card-title {
         margin-bottom: 4px;
         font-size: 18px;
-        color: $font-color;
+        color: var(--font-color-white);
         user-select: none;
     }
 
     .card-container {
         padding: 12px 0;
         font-size: 14px;
-        color: $font-color;
+        color: var(--font-color-white);
     }
 }
 </style>

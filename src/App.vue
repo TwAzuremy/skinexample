@@ -113,12 +113,12 @@ export default {
     padding: 12px;
     min-width: 180px;
     box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.08);
-    background-color: $panelBg;
+    background-color: var(--panel-background);
 
     .side-title {
         font-size: 32px;
         font-family: var(--font-family);
-        color: $font-color;
+        color: var(--font-color-white);
     }
 
     .divider {
@@ -139,7 +139,7 @@ export default {
     }
 
     .router-link-active .icon-button {
-        color: $minorBg;
+        color: var(--minor-color);
         font-size: 16px;
 
         &.bounce svg {

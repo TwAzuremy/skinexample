@@ -7,7 +7,8 @@
             </div>
             <div class="settings-switch">
                 <Switch v-if="model === 'switch'"></Switch>
-                <Dropdown v-if="model === 'dropdown'" :data="data" :default="defaultData" @dd-select="dropdownCondition"></Dropdown>
+                <Dropdown v-if="model === 'dropdown'" :data="data" :default="defaultData" @dd-select="dropdownCondition">
+                </Dropdown>
                 <slot name="custom" v-if="model === 'custom'"></slot>
             </div>
         </div>
@@ -96,7 +97,7 @@ export default {
 .settings {
     &-option {
         @include rows();
-        background-color: $panelBg;
+        background-color: var(--panel-background);
         border-radius: 4px;
         padding: 12px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
@@ -110,13 +111,14 @@ export default {
         flex: 1;
 
         &-title {
-            color: $font-color;
+            color: var(--font-color-white);
             font-size: 16px;
             font-weight: 600;
         }
 
         &-description {
-            color: rgba($font-color, $alpha: .4);
+            color: var(--font-color-white);
+            opacity: .6;
             font-size: 12px;
         }
     }

@@ -53,7 +53,7 @@ export default defineComponent({
     @include rows();
     position: absolute;
     padding: 12px 24px 12px 12px;
-    background-color: $panelBg;
+    background-color: var(--panel-background);
     width: 500px;
     height: 100%;
     top: 0;
@@ -64,10 +64,12 @@ export default defineComponent({
     .top {
         .button {
             @include button();
-            color: rgba($font-color, $alpha: .6);
+            color: var(--font-color-white);
+            opacity: .6;
 
             &:hover {
-                color: $minorBg;
+                color: var(--minor-color);
+                opacity: 1;
             }
         }
 

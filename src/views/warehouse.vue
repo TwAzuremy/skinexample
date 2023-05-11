@@ -174,14 +174,14 @@ export default defineComponent({
 
         &::-webkit-scrollbar {
             width: 8px;
-            background-color: $scrollerbarBg;
+            background-color: var(--track-slot-color);
             border-radius: 4px;
             transform: translateX(100px);
         }
 
         &::-webkit-scrollbar-thumb {
             border-radius: 4px;
-            background-color: $scrollerbarClr;
+            background-color: var(--track-color);
         }
 
 

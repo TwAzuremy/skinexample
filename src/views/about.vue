@@ -15,7 +15,7 @@
                         <img src="/img/project.jpg" alt="project image" class="project-img">
                         <div>
                             <span class="project-name">Minecraft Skin Storage Warehouse</span>
-                            <span class="project-description">alpha 1.0</span>
+                            <span class="project-description">alpha 1.1</span>
                         </div>
                         <a href="https://github.com/TwAzuremy/skinexample" target="_blank" class="jumpButton">项目 Github</a>
                     </div>
@@ -70,7 +70,8 @@
                             <span class="source-text">该项目的目的是创建一个易于使用、轻量级、跨浏览器的通用 3D 库</span>
                             <div class="source-button-group">
                                 <a href="https://threejs.org/" target="_blank" class="jumpButton">官网</a>
-                                <a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene" target="_blank" class="jumpButton">API 文档</a>
+                                <a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene"
+                                    target="_blank" class="jumpButton">API 文档</a>
                                 <a href="https://github.com/mrdoob/three.js/" target="_blank" class="jumpButton">Github</a>
                             </div>
                         </li>
@@ -130,7 +131,8 @@
                         <li class="source-content">
                             <span class="source-text">TrueType Font</span>
                             <div class="source-button-group">
-                                <a href="https://github.com/CyanoHao/Resource-Han-Rounded" target="_blank" class="jumpButton">Github</a>
+                                <a href="https://github.com/CyanoHao/Resource-Han-Rounded" target="_blank"
+                                    class="jumpButton">Github</a>
                             </div>
                         </li>
                     </ul>
@@ -243,14 +245,15 @@ a.jumpButton {
         .project-name {
             align-items: flex-start;
             font-weight: 600;
-            color: $font-color;
+            color: var(--font-color-white);
             font-size: 15px;
         }
 
         .author-description,
         .project-description {
             align-items: flex-end;
-            color: rgba($font-color, $alpha: .6);
+            color: var(--font-color-white);
+            opacity: .6;
             font-size: 12px;
         }
 
@@ -267,7 +270,7 @@ a.jumpButton {
 
 .about-source {
     @include cols();
-    color: $font-color;
+    color: var(--font-color-white);
 
     .left {
         @include rows();

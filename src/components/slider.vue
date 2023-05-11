@@ -121,7 +121,7 @@ export default defineComponent({
     @include rows();
 
     .slider-text {
-        color: $font-color;
+        color: var(--font-color-white);
         font-size: 14px;
         user-select: none;
     }
@@ -142,7 +142,7 @@ export default defineComponent({
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
-        background-color: $scrollerbarBg;
+        background-color: var(--track-slot-color);
         height: 6px;
         border-radius: 3px;
 
@@ -152,7 +152,7 @@ export default defineComponent({
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: $minorBg;
+            background-color: var(--minor-color);
         }
 
         &::-webkit-slider-runnable-track {
@@ -167,7 +167,7 @@ export default defineComponent({
         left: 0;
         height: 6px;
         border-radius: 3px;
-        background-color: rgba($minorBg, $alpha: .6);
+        background-color: var(--track-color);
         pointer-events: none;
     }
 
@@ -178,16 +178,16 @@ export default defineComponent({
         input[type="number"] {
             padding-right: 28px;
             font-size: 18px;
-            color: $font-color;
-            border: 1px solid rgba($font-color, $alpha: .4);
+            color: var(--font-color-white);
+            border: 1px solid var(--border-color-default);
             transition: border-color .2s ease-in-out;
 
             &:hover {
-                border-color: rgba($font-color, $alpha: .8);
+                border-color: var(--border-color-hover);
             }
 
             &:focus {
-                border-color: $minorBg;
+                border-color: var(--border-color-focus);
             }
 
             &::-webkit-outer-spin-button,
@@ -210,12 +210,12 @@ export default defineComponent({
                 @include cols();
                 @include center();
                 padding: 0 4px;
-                color: $font-color;
+                color: var(--font-color-white);
                 cursor: pointer;
                 transition: color .2s ease-in-out;
 
                 &:hover {
-                    color: $minorBg;
+                    color: var(--minor-color);
                 }
             }
         }

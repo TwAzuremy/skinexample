@@ -75,18 +75,20 @@ export default {
     &-code {
         font-family: 'minecraft';
         font-size: 136px;
-        color: rgba($font-color, $alpha: .8);
+        color: var(--font-color-white);
+        opacity: .8;
         text-shadow: 0 2px 4px rgba($color: #000000, $alpha: .2);
     }
 
     &-title {
         font-size: 32px;
-        color: $font-color;
+        color: var(--font-color-white);
     }
 
     &-description {
         font-size: 16px;
-        color: rgba($font-color, $alpha: .6);
+        color: var(--font-color-white);
+        opacity: .6;
 
         span {
             color: $green;
@@ -103,25 +105,8 @@ export default {
 
         a {
             flex: 1;
-            @include button();
+            @include jump-button();
             gap: 8px;
-            min-width: 100px;
-            max-height: 40px;
-            justify-content: center;
-            border: 1px solid $font-color;
-            font-size: 14px;
-            color: $font-color;
-            background-color: transparent;
-            transition: color .15s ease-in-out,
-                background-color .2s ease-in-out;
-
-            &:hover {
-                transform: none;
-                box-shadow: none;
-                border-color: $minorBg;
-                color: $minorBg;
-                background-color: rgba($minorBg, $alpha: .08);
-            }
         }
     }
 }

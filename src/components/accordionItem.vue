@@ -40,9 +40,8 @@ export default defineComponent({
 .accordion {
     &-title {
         font-size: 14px;
-        color: $font-color;
+        color: var(--font-color-white);
         font-weight: 400;
-        // margin-top: .08rem;
         line-height: 20px;
         transition: font-weight .2s, color .2s;
     }
@@ -60,7 +59,7 @@ export default defineComponent({
     }
 
     &-icon {
-        color: $font-color;
+        color: var(--font-color-white);
         transition: transform .3s, color .3s;
     }
 
@@ -68,7 +67,7 @@ export default defineComponent({
         position: relative;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
         border-radius: 8px;
-        background-color: $panelBg;
+        background-color: var(--panel-background);
         transition: all .25s ease;
 
         &::after {
@@ -85,12 +84,12 @@ export default defineComponent({
         &.accordion-open .accordion-header {
             .accordion-icon {
                 transform: rotate(45deg);
-                color: $minorBg;
+                color: var(--minor-color);
             }
 
             .accordion-title {
                 font-weight: 600;
-                color: $minorBg;
+                color: var(--minor-color);
             }
         }
     }

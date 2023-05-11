@@ -238,7 +238,7 @@ export default defineComponent({
             @include cols();
             align-items: center;
             font-weight: 600;
-            color: $font-color;
+            color: var(--font-color-white);
         }
     }
 
@@ -250,7 +250,7 @@ export default defineComponent({
         @include center();
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
-        background-color: $panelBg;
+        background-color: var(--panel-background);
 
         .canvas-control {
             position: absolute;
@@ -259,14 +259,16 @@ export default defineComponent({
             padding: 8px;
             @include cols();
             gap: 8px;
-            background-color: $panelBg;
+            background-color: var(--panel-background);
             border-radius: 0 4px 0 4px;
 
             .animation-button {
-                color: rgba($font-color, $alpha: .6);
+                color: var(--font-color-white);
+                opacity: .6;
 
                 &:hover {
-                    color: $minorBg;
+                    color: var(--minor-color);
+                    opacity: 1;
                 }
 
                 &.download:hover {

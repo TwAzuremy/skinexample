@@ -135,7 +135,7 @@ export default defineComponent({
 .skin-box {
     @include rows();
     @include center();
-    background-color: $panelBg;
+    background-color: var(--panel-background);
     box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
     border-radius: 8px;
     min-width: 196px;
@@ -147,8 +147,8 @@ export default defineComponent({
         line-height: 30px;
         text-align: center;
         font-size: 16px;
-        color: $font-color;
-        background-color: $scrollerbarBg;
+        color: var(--font-color-white);
+        background-color: var(--track-slot-color);
         border-radius: 4px;
     }
 
@@ -164,7 +164,8 @@ export default defineComponent({
         text-align: left;
         margin-bottom: 12px;
         font-size: 12px;
-        color: rgba($font-color, $alpha: .6);
+        color: var(--font-color-white);
+        opacity: .6;
     }
 
     .skin-info {
@@ -176,10 +177,10 @@ export default defineComponent({
 
         .info-left {
             line-height: 30px;
-            background-color: $scrollerbarBg;
+            background-color: var(--track-color);
             padding: 0 8px;
             border-radius: 4px;
-            color: $font-color;
+            color: var(--font-color-white);
             font-size: 14px;
 
             &.Alex {
@@ -197,13 +198,16 @@ export default defineComponent({
             height: 100%;
 
             .icon-button {
-                color: rgba($font-color, $alpha: .4);
+                color: var(--font-color-white);
+                opacity: .6;
 
                 &.like-icon {
                     margin-right: 4px;
                 }
 
                 &:hover {
+                    opacity: 1;
+
                     &.like-icon {
                         color: rgba($red, $alpha: 1);
                     }
@@ -223,10 +227,12 @@ export default defineComponent({
 
         .button {
             justify-content: center;
-            color: rgba($font-color, $alpha: .6);
+            color: var(--font-color-white);
+            opacity: .6;
 
             &:hover {
-                color: $minorBg;
+                opacity: 1;
+                color: var(--minor-color);
             }
 
             &.delete-icon:hover {

@@ -1,7 +1,7 @@
 <template>
     <div class="input-box">
         <slot name="prefix-svg"></slot>
-        <input :type="type" :placeholder="ph" ref="inputBox" v-model="value">
+        <input :type="type" :placeholder="ph" ref="inputBox" v-model="value" @input="inputChange">
         <svg @click="clear" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -27,6 +27,10 @@ export default {
         defaultValue: {
             type: String,
             default: ''
+        },
+        func: {
+            type: Function,
+            default: null
         }
     },
     setup(props) {
@@ -37,12 +41,18 @@ export default {
             value.value = ''
         }
 
+        function inputChange() {
+            if (props.func) {
+                props.func(value.value)
+            }
+        }
+
         watch(defaultValue, (newVal) => {
             value.value = newVal
         })
 
         return {
-            value, clear
+            value, clear, inputChange
         }
     }
 }
@@ -60,7 +70,7 @@ export default {
         outline: none;
         min-height: 40px;
         font-size: 16px;
-        color: $font-color;
+        color: var(--font-color-white);
         padding: 0 32px 0 12px;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.08);
@@ -70,12 +80,15 @@ export default {
             top: 50%;
             right: 8px;
             transform: translateY(-50%);
-            color: rgba($font-color, $alpha: .6);
+            color: var(--font-color-white);
+            opacity: .6;
             cursor: pointer;
-            transition: color .2s ease-in-out;
+            transition: color .2s ease-in-out,
+                opacity .2s ease-in-out;
 
             &:hover {
                 color: $red;
+                opacity: 1;
             }
         }
 
@@ -90,13 +103,13 @@ export default {
             top: 50%;
             left: 8px;
             transform: translateY(-50%);
-            color: $font-color;
+            color: var(--font-color-white);
             opacity: .6;
             transition: all .2s;
         }
 
         &:has(+input:focus) {
-            color: $minorBg;
+            color: var(--minor-color);
             opacity: 1;
         }
 

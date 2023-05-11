@@ -76,7 +76,7 @@ export default {
     input {
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
         padding-right: 32px;
-        color: $font-color;
+        color: var(--font-color-white);
         user-select: none;
         cursor: pointer;
     }
@@ -105,7 +105,7 @@ export default {
         width: 100%;
         position: absolute;
         top: 110%;
-        background-color: $panelBg;
+        background-color: var(--panel-background);
         padding: 8px;
         border-radius: 4px;
         box-shadow: 0 0 4px rgba($color: #000000, $alpha: .08);
@@ -136,7 +136,7 @@ export default {
             padding: 8px;
             border-radius: 4px;
             font-size: 14px;
-            color: $font-color;
+            color: var(--font-color-white);
             cursor: pointer;
             transition: background-color .1s linear,
                 color .08s linear,
@@ -147,14 +147,14 @@ export default {
             }
 
             &:hover {
-                background-color: $minorBg;
-                color: $font-color-dark;
+                background-color: var(--minor-color);
+                color: var(--font-color-black);
                 opacity: .7;
             }
 
             &.select {
-                background-color: $minorBg;
-                color: $font-color-dark;
+                background-color: var(--minor-color);
+                color: var(--font-color-black);
                 opacity: 1;
             }
         }
