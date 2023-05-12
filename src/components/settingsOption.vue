@@ -6,7 +6,7 @@
                 <span class="settings-label-description">{{ description }}</span>
             </div>
             <div class="settings-switch">
-                <Switch v-if="model === 'switch'"></Switch>
+                <Switch v-if="model === 'switch'" @switchEvent="switchCondition"></Switch>
                 <Dropdown v-if="model === 'dropdown'" :data="data" :default="defaultData" @dd-select="dropdownCondition">
                 </Dropdown>
                 <slot name="custom" v-if="model === 'custom'"></slot>
@@ -84,8 +84,16 @@ export default {
             }
         }
 
+        function switchCondition(bool) {
+            toggleExtension(props.extension && bool === props.condition)
+
+            if (props.func !== null) {
+                props.func(bool)
+            }
+        }
+
         return {
-            extensionContainer, dropdownCondition, open
+            extensionContainer, dropdownCondition, open, switchCondition
         }
     }
 }

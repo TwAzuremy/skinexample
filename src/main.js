@@ -5,6 +5,4 @@ import store from './store'
 
 const app = createApp(App)
 
-app.config.warnHandler = () => null
-
 app.use(store).use(router).mount('#app')

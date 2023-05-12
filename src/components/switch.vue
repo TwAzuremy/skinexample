@@ -1,12 +1,23 @@
 <template>
     <label class="switch">
-        <input type="checkbox">
+        <input ref="checked" type="checkbox" :checked="isChecked" @change="switchButton">
     </label>
 </template>
 
 <script>
 export default {
-    name: 'Switch'
+    name: 'Switch',
+    props: {
+        isChecked: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        switchButton() {
+            this.$emit('switchEvent', this.$refs.checked.checked)
+        }
+    }
 }
 </script>
 

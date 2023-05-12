@@ -48,11 +48,16 @@
                                         <li>第三色彩</li>
                                     </ul>
                                     <ul class="theme-customer-input">
-                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeBackground" :defaultValue="themeColor.background"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changePanel" :defaultValue="themeColor.panel"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontLight" :defaultValue="themeColor.fontLight"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontDark" :defaultValue="themeColor.fontDark"></input-box></li>
-                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeMinor" :defaultValue="themeColor.minor"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeBackground"
+                                                :defaultValue="themeColor.background"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changePanel"
+                                                :defaultValue="themeColor.panel"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontLight"
+                                                :defaultValue="themeColor.fontLight"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeFontDark"
+                                                :defaultValue="themeColor.fontDark"></input-box></li>
+                                        <li><input-box ph="十六进制颜色" :func="changeTheme.changeMinor"
+                                                :defaultValue="themeColor.minor"></input-box></li>
                                     </ul>
                                     <div class="theme-preview" :style="{ 'background-color': themeColor.background }">
                                         <div class="theme-preview-panel" :style="{ 'background-color': themeColor.panel }">
@@ -71,10 +76,34 @@
                         :defaultData="1"></settings-option>
                 </div>
             </panel>
+            <panel title="皮肤库管理">
+                <div class="settings-option-container">
+                    <settings-option title="使用本地皮肤库" description="使用本地创建的皮肤库 (数据返回格式必须一致)" :extension="true"
+                        :condition="true" model="switch">
+                        <template v-slot:extension>
+                            <div class="custom-extension localUrlInput">
+                                <span class="localText">本地 URL</span>
+                                <input-box ph="请输入 URL">
+                                    <template v-slot:prefix-svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="feather feather-inbox">
+                                            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                                            <path
+                                                d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                                            </path>
+                                        </svg>
+                                    </template>
+                                </input-box>
+                            </div>
+                        </template>
+                    </settings-option>
+                </div>
+            </panel>
             <panel title="设置卡展示">
                 <div class="settings-option-container">
                     <settings-option title="下拉菜单" description="适用于多种选择" model="dropdown"
-                        :data="['选项 1', '选项 2', '选项 3', '选项 4']"></settings-option>
+                        :data="['选项 1', '选项 2', '选项 3', '选项 4', '选项 5', '选项 6']"></settings-option>
                     <settings-option title="开关" description="适用于打开或关闭某个项目" model="switch"></settings-option>
                 </div>
             </panel>
@@ -152,19 +181,19 @@ export default {
 
         const changeTheme = {
             changeBackground: (color) => {
-                themeColor.value.background = color
+                themeColor.value.background = color.toUpperCase()
             },
             changePanel: (color) => {
-                themeColor.value.panel = color
+                themeColor.value.panel = color.toUpperCase()
             },
             changeFontLight: (color) => {
-                themeColor.value.fontLight = color
+                themeColor.value.fontLight = color.toUpperCase()
             },
             changeFontDark: (color) => {
-                themeColor.value.fontDark = color
+                themeColor.value.fontDark = color.toUpperCase()
             },
             changeMinor: (color) => {
-                themeColor.value.minor = color
+                themeColor.value.minor = color.toUpperCase()
             },
         }
 
@@ -308,10 +337,23 @@ export default {
                 }
             }
         }
+
+        .localUrlInput {
+            @include cols();
+            align-items: center;
+            gap: 12px;
+
+            .localText {
+                font-size: 14px;
+            }
+
+            .input-box {
+                flex: 1;
+            }
+        }
     }
 
     .panel:not(:first-child) {
         margin-top: 16px;
     }
-}
-</style>
+}</style>
