@@ -6,7 +6,7 @@
                 <p>敬请期待... 🎉</p>
             </home-card>
             <home-card title="进度" dividerColor="#C785C8">
-                <p>还在努力学习并施工中... 🚚</p>
+                <p>所有页面初步施工完毕, 正在施工一些小细节... 🚚</p>
             </home-card>
         </div>
         <div class="row row-2">

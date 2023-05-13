@@ -38,8 +38,8 @@ export default {
     data() {
         return {
             dropdownShow: false,
-            actualHeight: this.data.length * 35 + (this.data.length - 1) * 8 + 16,
-            setHeight: this.maxItemShow * 35 + (this.data.length - 1) * 8 + 16,
+            actualHeight: this.data.length * 36 + (this.data.length - 1) * 8 + 16,
+            setHeight: this.maxItemShow * 36 + (this.data.length - 1) * 8 + 16,
             inputValue: this.data[this.default],
             selectIndex: this.default
         }
@@ -136,6 +136,7 @@ export default {
             padding: 8px;
             border-radius: 4px;
             font-size: 14px;
+            line-height: 20px;
             color: var(--font-color-white);
             cursor: pointer;
             transition: background-color .1s linear,

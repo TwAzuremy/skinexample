@@ -6,7 +6,7 @@
         <div class="skin-info warehouseStyle" v-if="'warehouse' === showModel">
             <span class="model info-left" :class="model">{{ model }}</span>
             <div class="info-right">
-                <icon-button class="like-icon" :text="like">
+                <icon-button class="like-icon" :text="like + ''">
                     <template v-slot:svg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -17,7 +17,7 @@
                         </svg>
                     </template>
                 </icon-button>
-                <icon-button class="favorite-icon" :text="favorite">
+                <icon-button class="favorite-icon" :text="favorite + ''">
                     <template v-slot:svg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -185,6 +185,8 @@ export default defineComponent({
             border-radius: 4px;
             color: var(--font-color-white);
             font-size: 14px;
+            font-family: 'minecraft';
+            user-select: none;
 
             &.Alex {
                 background-color: $yellow;

@@ -13,6 +13,10 @@
             </input-box>
         </div>
         <div class="settings-panel">
+            <panel title="语言">
+                <settings-option title="默认语言" description="全局改变语言" model="dropdown"
+                    :data="['简体中文', '繁体中文', 'English']"></settings-option>
+            </panel>
             <panel title="自定义外观">
                 <div class="settings-option-container">
                     <settings-option title="整体外观" description="适用于全局颜色设置" model="dropdown" :extension="true" :condition="3"
@@ -74,6 +78,21 @@
                     </settings-option>
                     <settings-option title="字体样式" description="适用于全局字体样式" model="dropdown" :data="font" :func="changeFont"
                         :defaultData="1"></settings-option>
+                    <settings-option title="背景图片" description="添加一张背景图片" model="custom">
+                        <template v-slot:custom>
+                            <input-box class="background-image" ph="图片 URL">
+                                <template v-slot:prefix-svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-image">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                </template>
+                            </input-box>
+                        </template>
+                    </settings-option>
                 </div>
             </panel>
             <panel title="皮肤库管理">
@@ -82,7 +101,7 @@
                         :condition="true" model="switch">
                         <template v-slot:extension>
                             <div class="custom-extension localUrlInput">
-                                <span class="localText">本地 URL</span>
+                                <span class="localText">本地数据库</span>
                                 <input-box ph="请输入 URL">
                                     <template v-slot:prefix-svg>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -351,9 +370,15 @@ export default {
                 flex: 1;
             }
         }
+
+        .background-image {
+            max-width: 229px;
+            width: 229px;
+        }
     }
 
     .panel:not(:first-child) {
         margin-top: 16px;
     }
-}</style>
+}
+</style>

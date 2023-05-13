@@ -184,7 +184,7 @@ export default {
     flex: 1;
     padding: 0 16px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     @include scroll();
 }
 </style>

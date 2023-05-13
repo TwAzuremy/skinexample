@@ -18,7 +18,7 @@
         </drawers>
     </div>
     <masking class="favorite-masking" ref="favoriteMasking">
-        <confirmation-box ref="favoriteConfirmation" title="删除皮肤" type="del" :noCloseButton="true"
+        <confirmation-box ref="favoriteConfirmation" :closeTitleBar="true" type="del" :noCloseButton="true"
             @cancelEvent="switchConfirmation">
             <template v-slot:description>
                 是否确认将名为<span class="skin-name">{{ delInfo.name }}</span>的<span class="skin-model">{{ delInfo.model
@@ -123,7 +123,8 @@ export default defineComponent({
 
     .fav-container {
         flex: 1;
-        overflow-y: scroll;
+        overflow-x: hidden;
+        overflow-y: auto;
         @include scroll();
         margin: 12px 0;
 

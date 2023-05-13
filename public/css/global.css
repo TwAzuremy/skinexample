@@ -5,7 +5,7 @@
     --font-color-white: #212121;
     --font-color-black: #FFFFFF;
     --track-color: #4091FF99;
-    --track-slot-color: #E0E0E099;
+    --track-slot-color: #E0E0E0AA;
     --button-color: #4091FF19;
     --border-color-default: #21212166;
     --border-color-hover: #212121CC;
@@ -13,6 +13,7 @@
     --switch-not-checked: #CCCCCC;
     --switch-checked: var(--minor-color);
     --switch-ball: var(--panel-background);
+    --step-border: #21212199;
     --font-family: 'Resource-Han-Rounded', 'Consolas', sans-serif;
 }
 
