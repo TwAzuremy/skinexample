@@ -79,17 +79,13 @@ export default {
         function dropdownCondition(index) {
             toggleExtension(props.extension && index === props.condition)
 
-            if (props.func !== null) {
-                props.func(index)
-            }
+            props.func?.(index)
         }
 
         function switchCondition(bool) {
             toggleExtension(props.extension && bool === props.condition)
 
-            if (props.func !== null) {
-                props.func(bool)
-            }
+            props.func?.(bool)
         }
 
         return {

@@ -208,6 +208,7 @@ export default defineComponent({
 
         onBeforeUnmount(() => {
             skinViewer.dispose()
+            
             nextTick(() => {
                 stopWatching && stopWatching()
             })

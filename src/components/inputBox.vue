@@ -1,8 +1,8 @@
 <template>
     <div class="input-box">
         <slot name="prefix-svg"></slot>
-        <input :type="type" :placeholder="ph" ref="inputBox" v-model="value" @input="inputChange">
-        <svg @click="clear" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        <input :type="type" :placeholder="ph" ref="inputBox" v-model="value" @input="inputChange" :readonly="readOnly">
+        <svg @click="clear" v-if="hasClear" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -28,6 +28,14 @@ export default {
             type: String,
             default: ''
         },
+        hasClear: {
+            type: Boolean,
+            default: true
+        },
+        readOnly: {
+            type: Boolean,
+            default: false
+        },
         func: {
             type: Function,
             default: null
@@ -42,9 +50,7 @@ export default {
         }
 
         function inputChange() {
-            if (props.func) {
-                props.func(value.value)
-            }
+            props.func?.(value.value)
         }
 
         watch(defaultValue, (newVal) => {
@@ -71,9 +77,13 @@ export default {
         min-height: 40px;
         font-size: 16px;
         color: var(--font-color-white);
-        padding: 0 32px 0 12px;
+        padding: 0 12px;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.08);
+
+        &:has(+svg) {
+            padding: 0 32px 0 12px;
+        }
 
         +svg {
             position: absolute;
@@ -114,7 +124,11 @@ export default {
         }
 
         +input {
-            padding: 0 32px;
+            padding: 0 12px 0 32px;
+
+            &:has(+svg) {
+                padding: 0 32px;
+            }
         }
     }
 }

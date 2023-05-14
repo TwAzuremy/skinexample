@@ -1,7 +1,7 @@
 /**
  * 
  * @param {HTMLCanvasElement} canvas 
- * @param {Map} skinList 
+ * @param {Array} skinList [{ skin, model }]
  */
 export function drawSkinCanvasToImg(canvas, skinList) {
     draw()
@@ -10,8 +10,6 @@ export function drawSkinCanvasToImg(canvas, skinList) {
         for (let i = 0; i < skinList.length; i++) {
             await task(i)
         }
-
-        return skinList
     }
 
     function task(task) {

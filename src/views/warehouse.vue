@@ -22,7 +22,7 @@
         <div class="down" ref="skinContainer">
             <ul class="skin-container">
                 <li class="container" v-for="(row, i) in skinContainerList" :key="i">
-                    <skin-box :style="{ 'min-width': (196 + fillWidth) + 'px' }" v-for="(col, j) in row" :key="j"
+                    <skin-box :style="{ 'width': (196 + fillWidth) + 'px' }" v-for="(col, j) in row" :key="j"
                         :skin="col.imgURL" :title="col.title" :model="col.model" :uploadAuthor="col.author" :clickData="col"
                         @imgEvent="toSkinDisplay"></skin-box>
                 </li>
@@ -146,7 +146,7 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            skinList.value = drawSkinCanvasToImg(canvas, skinList.value)
+            drawSkinCanvasToImg(canvas, skinList.value)
             initSkinContainer()
 
             skinContainer.value.addEventListener('scroll', debouncedScrollHandler)

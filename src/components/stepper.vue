@@ -1,6 +1,6 @@
 <template>
     <ul class="stepper" ref="stepper">
-        <li class="step" v-for="index in step" :key="index" @click="setStep(index)">
+        <li class="step" v-for="index in step" :key="index" @click="this.skip ? setStep(index) : null">
             <bubble location="top" :bubble="needStepName" :description="needStepName ? stepName[index - 1] : ''"></bubble>
             <div class="step-bullet" :style="{ '--progress-bar': `${((300 - 24 - step * 25) / (step - 1)) - 8}px` }">
                 <span class="step-number">{{ index }}</span>
@@ -36,6 +36,10 @@ export default {
         needStepName: {
             type: Boolean,
             default: false
+        },
+        skip: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -47,19 +51,28 @@ export default {
     methods: {
         next() {
             this.stepHTMLElement[this.nowStep - 1].classList.add('turn')
-            this.nowStep = Math.min(++this.nowStep, this.step);
+            this.nowStep = Math.min(++this.nowStep, this.step)
         },
         prev() {
+            if (this.nowStep === this.step) {
+                this.stepHTMLElement[this.stepHTMLElement.length - 1].classList.remove('turn')
+            }
+
             this.stepHTMLElement[this.nowStep - 2].classList.remove('turn')
-            this.nowStep = Math.max(--this.nowStep, 1)
+            this.nowStep = Math.max(--this.nowStep, 0)
         },
         getStep() {
             return this.nowStep
         },
         setStep(number) {
             this.nowStep = number
-
+            
             this.stepHTMLElement.forEach(element => element.classList.remove('turn'))
+
+            if (number === 0) {
+                return
+            }
+
             for (let i = 0; i < number - 1; i++) {
                 this.stepHTMLElement[i].classList.add('turn')
             }
@@ -81,6 +94,7 @@ export default {
     @include cols();
     justify-content: space-between;
     width: 100%;
+    font-family: var(--font-family);
 
     .step {
         position: relative;
@@ -99,8 +113,8 @@ export default {
         .step-bullet {
             @include cols();
             @include center();
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
             border: 2px solid var(--step-border);
             border-radius: 50%;
             transition: border-color .2s ease-in-out .1s;
@@ -109,6 +123,7 @@ export default {
                 color: var(--step-border);
                 font-size: 14px;
                 font-weight: 500;
+                line-height: 25px;
             }
 
             &::before,
@@ -119,7 +134,7 @@ export default {
                 display: inline-block;
                 top: 50%;
                 transform: translateY(-50%);
-                left: calc(25px + 4px);
+                left: calc(24px + 4px);
                 height: 4px;
                 border-radius: 2px;
             }
@@ -150,8 +165,8 @@ export default {
             left: 0;
             @include cols();
             @include center();
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background-color: var(--minor-color);
             color: var(--font-color-black);
