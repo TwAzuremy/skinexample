@@ -71,7 +71,41 @@
                                             </p>
                                             <p class="theme-preview-minor" :style="{ 'color': themeColor.minor }">第三色彩</p>
                                         </div>
+                                        <span class="theme-preview-title">PREVIEW</span>
                                     </div>
+                                </div>
+                                <div class="theme-operation">
+                                    <a class="theme-operation-button theme-random">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="feather feather-refresh-cw">
+                                            <polyline points="23 4 23 10 17 10"></polyline>
+                                            <polyline points="1 20 1 14 7 14"></polyline>
+                                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                            </path>
+                                        </svg>
+                                        <span>随机</span>
+                                    </a>
+                                    <a class="theme-operation-button theme-save" @click="saveTheme">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="feather feather-save">
+                                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z">
+                                            </path>
+                                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                            <polyline points="7 3 7 8 15 8"></polyline>
+                                        </svg>
+                                        <span>保存</span>
+                                    </a>
+                                    <a class="theme-operation-button theme-add">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="feather feather-plus">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        <span>添加预选</span>
+                                    </a>
                                 </div>
                             </div>
                         </template>
@@ -115,30 +149,6 @@
                                     </template>
                                 </input-box>
                             </div>
-                        </template>
-                    </settings-option>
-                </div>
-            </panel>
-            <panel title="设置卡展示">
-                <div class="settings-option-container">
-                    <settings-option title="下拉菜单" description="适用于多种选择" model="dropdown"
-                        :data="['选项 1', '选项 2', '选项 3', '选项 4', '选项 5', '选项 6']"></settings-option>
-                    <settings-option title="开关" description="适用于打开或关闭某个项目" model="switch"></settings-option>
-                </div>
-            </panel>
-            <panel title="测试页面">
-                <div class="settings-option-container">
-                    <settings-option title="测试页面" description="跳转至 404 页面" model="custom">
-                        <template v-slot:custom>
-                            <a class="option-jump" @click="to('this_is_not_found')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-arrow-left">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                                <span>跳转至 404</span>
-                            </a>
                         </template>
                     </settings-option>
                 </div>
@@ -200,28 +210,41 @@ export default {
 
         const changeTheme = {
             changeBackground: (color) => {
-                themeColor.value.background = color.toUpperCase()
+                themeColor.value.background = color
             },
             changePanel: (color) => {
-                themeColor.value.panel = color.toUpperCase()
+                themeColor.value.panel = color
             },
             changeFontLight: (color) => {
-                themeColor.value.fontLight = color.toUpperCase()
+                themeColor.value.fontLight = color
             },
             changeFontDark: (color) => {
-                themeColor.value.fontDark = color.toUpperCase()
+                themeColor.value.fontDark = color
             },
             changeMinor: (color) => {
-                themeColor.value.minor = color.toUpperCase()
+                themeColor.value.minor = color
             },
         }
 
+        const saveTheme = () => {
+            document.documentElement.style.setProperty('--main-background', themeColor.value.background)
+            document.documentElement.style.setProperty('--minor-color', themeColor.value.minor)
+            document.documentElement.style.setProperty('--track-color', `${themeColor.value.minor}99`)
+            document.documentElement.style.setProperty('--button-color', `${themeColor.value.minor}19`)
+            document.documentElement.style.setProperty('--panel-background', themeColor.value.panel)
+            document.documentElement.style.setProperty('--font-color-white', themeColor.value.fontLight)
+            document.documentElement.style.setProperty('--border-color-default', `${themeColor.value.fontLight}66`)
+            document.documentElement.style.setProperty('--border-color-hover', `${themeColor.value.fontLight}CC`)
+            document.documentElement.style.setProperty('--step-border', `${themeColor.value.fontLight}99`)
+            document.documentElement.style.setProperty('--font-color-black', themeColor.value.fontDark)
+        }
+
         onMounted(() => {
-            selectTheme('System')
+            selectTheme('Light')
         })
 
         return {
-            theme, entries, selectTheme, themeColor, to, changeFont, font, changeTheme
+            theme, entries, selectTheme, themeColor, to, changeFont, font, changeTheme, saveTheme
         }
     }
 }
@@ -297,10 +320,6 @@ export default {
                             color: var(--minor-color);
                         }
                     }
-
-                    svg {
-                        color: var(--font-color-white);
-                    }
                 }
 
             }
@@ -316,6 +335,7 @@ export default {
                     &.theme-customer-text li {
                         font-size: 14px;
                         font-weight: 600;
+                        color: var(--font-color-white);
                     }
 
                     &.theme-customer-input li {
@@ -330,6 +350,7 @@ export default {
                 }
 
                 .theme-preview {
+                    position: relative;
                     flex: 1;
                     @include cols();
                     @include center();
@@ -340,7 +361,7 @@ export default {
                         @include rows();
                         @include center();
                         gap: 12px;
-                        width: 80%;
+                        width: 50%;
                         height: 80%;
                         border-radius: 4px;
                         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
@@ -353,6 +374,39 @@ export default {
                             transition: color .2s ease-in-out;
                         }
                     }
+
+                    .theme-preview-title {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        border-bottom-right-radius: 8px;
+                        background-color: var(--panel-background);
+                        padding: 4px 8px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: var(--font-color-white);
+                        box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: .08);
+                        user-select: none;
+                    }
+                }
+            }
+
+            .theme-operation {
+                margin-top: 8px;
+                width: 100%;
+                @include cols();
+                justify-content: flex-end;
+                gap: 12px;
+
+                .theme-operation-button {
+                    @include button();
+                    gap: 8px;
+                    font-size: 14px;
+                    box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
+
+                    &:hover {
+                        color: var(--minor-color);
+                    }
                 }
             }
         }
@@ -364,6 +418,7 @@ export default {
 
             .localText {
                 font-size: 14px;
+                color: var(--font-color-white);
             }
 
             .input-box {

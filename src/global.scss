@@ -29,6 +29,7 @@ input {
     padding: 8px;
     border-radius: 4px;
     transform: translateY(0);
+    color: var(--font-color-white);
     transition: transform .2s ease-in-out,
         box-shadow .2s linear,
         color .2s ease-in-out,

@@ -67,6 +67,7 @@ export default {
     &-row {
         @include cols();
         align-items: center;
+        color: var(--font-color-white);
 
         &-title {
             flex: 1;

@@ -77,6 +77,7 @@ export default {
         box-shadow: 0 2px 4px rgba($color: #000000, $alpha: .08);
         padding-right: 32px;
         color: var(--font-color-white);
+        background-color: var(--panel-background);
         user-select: none;
         cursor: pointer;
     }
@@ -92,6 +93,7 @@ export default {
         pointer-events: none;
 
         svg {
+            color: var(--font-color-white);
             transform: rotate(0);
             transition: transform .2s ease-in-out;
         }

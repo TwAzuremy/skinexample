@@ -179,6 +179,7 @@ export default defineComponent({
             padding-right: 28px;
             font-size: 18px;
             color: var(--font-color-white);
+            background-color: var(--panel-background);
             border: 1px solid var(--border-color-default);
             transition: border-color .2s ease-in-out;
 

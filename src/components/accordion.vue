@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'Accordion',
@@ -21,9 +21,6 @@ export default defineComponent({
         function getAccordionItemOpen() {
             return accordionContainer.value.querySelector('.accordion-open')
         }
-
-        onMounted(() => {
-        })
 
         return {
             accordionContainer, getAccordionItems, getAccordionItemOpen

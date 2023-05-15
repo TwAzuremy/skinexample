@@ -41,6 +41,7 @@
                 <slot name="description"></slot>
             </p>
         </div>
+        <divider></divider>
         <div class="confirmation-button">
             <a class="confirmation-cancel" @click="cancel">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -64,8 +65,13 @@
 </template>
 
 <script>
+import Divider from './divider.vue';
+
 export default {
     name: 'ConfirmationBox',
+    components: {
+        Divider
+    },
     props: {
         type: {
             type: String,
@@ -121,7 +127,6 @@ export default {
         box-shadow: 0 0 4px rgba($color: #000000, $alpha: .08);
         font-family: var(--font-family);
         @include rows();
-        gap: 12px;
         opacity: 0;
         transition: transform .25s ease-in-out,
             opacity .25s ease-in-out;
@@ -136,6 +141,7 @@ export default {
         width: 100%;
         @include cols();
         @include center();
+        margin-bottom: 12px;
 
         >svg {
             color: $blue;
@@ -159,6 +165,7 @@ export default {
     &-titleBar {
         @include cols();
         align-items: center;
+        margin-bottom: 12px;
         gap: 8px;
 
         &-title {
@@ -181,6 +188,7 @@ export default {
         font-size: 14px;
         text-indent: 2em;
         color: var(--font-color-white);
+        margin-bottom: 4px;
 
         .confirmation-major {
             font-size: 16px;
@@ -192,14 +200,19 @@ export default {
 
     &-button {
         @include cols();
-        margin-top: 8px;
         gap: 8px;
+        margin-top: 4px;
 
         >a {
             flex: 1;
-            @include jump-button();
+            @include button();
+            justify-content: center;
             gap: 8px;
             font-size: 14px;
+
+            &:hover {
+                color: var(--minor-color);
+            }
         }
     }
 }
